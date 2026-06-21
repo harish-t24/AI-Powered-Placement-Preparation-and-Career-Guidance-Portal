@@ -396,17 +396,66 @@ def aptitude():
 # Coding Practice
 # ==========================
 
-@app.route("/coding")
+@app.route('/coding')
 @login_required
 def coding():
 
     questions = CodingQuestion.query.all()
 
+    print("Questions Count:", len(questions))
+    print("Questions:", questions)
+
     return render_template(
-        "coding.html",
+        'coding.html',
         questions=questions
     )
 
+@app.route("/run-code", methods=["POST"])
+@login_required
+def run_code():
+
+    code = request.form.get("code")
+
+    output = "Code executed successfully."
+
+    return render_template(
+        "run_result.html",
+        code=code,
+        output=output
+    )
+
+@app.route("/submit-solution", methods=["POST"])
+@login_required
+def submit_solution():
+
+    student = Student.query.get(current_user.id)
+
+    student.coding_score = min(
+        student.coding_score + 25,
+        100
+    )
+
+    db.session.commit()
+
+    flash("Solution Submitted Successfully!")
+
+    return redirect("/dashboard")
+
+@app.route("/ai-review", methods=["POST"])
+@login_required
+def ai_review():
+
+    code = request.form.get("code")
+
+    try:
+        feedback = review_code(code)
+    except Exception as e:
+        feedback = f"AI Review Error: {str(e)}"
+
+    return render_template(
+        "review_result.html",
+        feedback=feedback
+    )
 
 # ==========================
 # Mock Interview
@@ -628,68 +677,255 @@ def add_aptitude():
 from flask import send_file
 import os
 
+from flask import send_file
+from reportlab.platypus import (
+    SimpleDocTemplate,
+    Paragraph,
+    Spacer,
+    Table,
+    TableStyle,
+    PageBreak
+)
+from reportlab.lib import colors
+from reportlab.lib.styles import getSampleStyleSheet
+from reportlab.lib.enums import TA_CENTER
+from reportlab.lib import colors
+from reportlab.lib.units import inch
+from datetime import datetime
+
+
 @app.route("/download-report")
 @login_required
 def download_report():
 
     filename = f"report_{current_user.id}.pdf"
 
-    doc = SimpleDocTemplate(filename)
+    doc = SimpleDocTemplate(
+        filename,
+        rightMargin=40,
+        leftMargin=40,
+        topMargin=40,
+        bottomMargin=40
+    )
 
     styles = getSampleStyleSheet()
 
+    title_style = styles["Title"]
+    title_style.alignment = TA_CENTER
+
+    heading_style = styles["Heading2"]
+    normal_style = styles["BodyText"]
+
     content = []
 
-    content.append(
-        Paragraph(
-            "AI Placement Report",
-            styles["Title"]
-        )
-    )
-
-    content.append(
-        Spacer(1,12)
-    )
+    # ==========================
+    # Header
+    # ==========================
 
     content.append(
         Paragraph(
-            f"Name: {current_user.name}",
-            styles["Normal"]
+            "AI PLACEMENT PERFORMANCE REPORT",
+            title_style
         )
     )
 
     content.append(
         Paragraph(
-            f"Email: {current_user.email}",
-            styles["Normal"]
+            "AI-Powered Placement Preparation & Career Guidance Portal",
+            styles["Heading3"]
+        )
+    )
+
+    content.append(
+        Spacer(1, 20)
+    )
+
+    # ==========================
+    # Student Details
+    # ==========================
+
+    content.append(
+        Paragraph(
+            "Student Information",
+            heading_style
+        )
+    )
+
+    student_data = [
+        ["Name", current_user.name],
+        ["Email", current_user.email],
+        ["Report Date", datetime.now().strftime("%d-%m-%Y")]
+    ]
+
+    student_table = Table(
+        student_data,
+        colWidths=[120, 320]
+    )
+
+    student_table.setStyle(
+        TableStyle([
+            ('BACKGROUND',(0,0),(0,-1),colors.darkblue),
+            ('TEXTCOLOR',(0,0),(0,-1),colors.white),
+            ('GRID',(0,0),(-1,-1),1,colors.black),
+            ('FONTNAME',(0,0),(-1,-1),'Helvetica-Bold')
+        ])
+    )
+
+    content.append(student_table)
+
+    content.append(
+        Spacer(1,20)
+    )
+
+    # ==========================
+    # Scores
+    # ==========================
+
+    aptitude = getattr(
+        current_user,
+        "aptitude_score",
+        0
+    )
+
+    coding = getattr(
+        current_user,
+        "coding_score",
+        0
+    )
+
+    interview = getattr(
+        current_user,
+        "interview_score",
+        0
+    )
+
+    resume = getattr(
+        current_user,
+        "resume_score",
+        0
+    )
+
+    readiness = round(
+        calculate_readiness(current_user),
+        1
+    )
+
+    content.append(
+        Paragraph(
+            "Performance Summary",
+            heading_style
+        )
+    )
+
+    score_data = [
+        ["Assessment", "Score"],
+        ["Aptitude", aptitude],
+        ["Coding", coding],
+        ["Interview", interview],
+        ["Resume", resume],
+        ["Placement Readiness", f"{readiness}%"]
+    ]
+
+    score_table = Table(
+        score_data,
+        colWidths=[250,150]
+    )
+
+    score_table.setStyle(
+        TableStyle([
+            ('BACKGROUND',(0,0),(-1,0),colors.HexColor("#1e40af")),
+            ('TEXTCOLOR',(0,0),(-1,0),colors.white),
+            ('GRID',(0,0),(-1,-1),1,colors.black),
+            ('FONTNAME',(0,0),(-1,0),'Helvetica-Bold'),
+            ('BACKGROUND',(0,1),(-1,-1),colors.whitesmoke)
+        ])
+    )
+
+    content.append(score_table)
+
+    content.append(
+        Spacer(1,20)
+    )
+
+    # ==========================
+    # Readiness Section
+    # ==========================
+
+    content.append(
+        Paragraph(
+            f"""
+            <para align='center'>
+            <font size='20' color='green'>
+            Placement Readiness Score: {readiness}%
+            </font>
+            </para>
+            """,
+            normal_style
+        )
+    )
+
+    content.append(
+        Spacer(1,20)
+    )
+
+    # ==========================
+    # AI Recommendation
+    # ==========================
+
+    recommendation = ""
+
+    if readiness >= 90:
+        recommendation = """
+        Excellent performance. You are highly placement-ready and
+        can confidently attend campus interviews.
+        """
+
+    elif readiness >= 75:
+        recommendation = """
+        Good performance. Improve coding and mock interview practice
+        to maximize placement chances.
+        """
+
+    else:
+        recommendation = """
+        More preparation is required. Focus on aptitude,
+        coding challenges, and resume improvement.
+        """
+
+    content.append(
+        Paragraph(
+            "AI Recommendation",
+            heading_style
         )
     )
 
     content.append(
         Paragraph(
-            f"Aptitude Score: {current_user.aptitude_score}",
-            styles["Normal"]
+            recommendation,
+            normal_style
         )
     )
 
     content.append(
-        Paragraph(
-            f"Coding Score: {current_user.coding_score}",
-            styles["Normal"]
-        )
+        Spacer(1,40)
     )
+
+    # ==========================
+    # Footer
+    # ==========================
 
     content.append(
         Paragraph(
-            f"Interview Score: {current_user.interview_score}",
-            styles["Normal"]
-        )
-    )
-
-    content.append(
-        Paragraph(
-            f"Resume Score: {current_user.resume_score}",
-            styles["Normal"]
+            """
+            <para align='center'>
+            <font size='10'>
+            Generated Automatically by AI Placement Portal
+            <br/>
+            © 2026 AI Placement Preparation & Career Guidance Portal
+            </font>
+            </para>
+            """,
+            normal_style
         )
     )
 
@@ -697,33 +933,253 @@ def download_report():
 
     return send_file(
         filename,
-        as_attachment=True
+        as_attachment=True,
+        download_name="AI_Placement_Report.pdf"
     )
 
+from flask import send_file
+from flask_login import login_required, current_user
 from reportlab.pdfgen import canvas
+from reportlab.lib.pagesizes import landscape, A4
+from reportlab.lib import colors
+from datetime import datetime
+
 
 @app.route("/certificate")
 @login_required
 def certificate():
 
-    readiness = calculate_readiness(
-        current_user
+    readiness = round(
+        calculate_readiness(current_user),
+        1
     )
 
     if readiness < 80:
-
         return """
-        <h2>
-        Certificate available only for
-        readiness score above 80%.
-        </h2>
+        <div style="text-align:center;margin-top:100px;font-family:Arial;">
+            <h1>🏆 Certificate Locked</h1>
+            <h3>Minimum Readiness Score Required: 80%</h3>
+            <h2>Keep Practicing!</h2>
+        </div>
         """
 
-    filename = (
-        f"certificate_{current_user.id}.pdf"
+    aptitude = getattr(current_user, "aptitude_score", 0)
+    coding = getattr(current_user, "coding_score", 0)
+    interview = getattr(current_user, "interview_score", 0)
+    resume = getattr(current_user, "resume_score", 0)
+
+    cert_id = f"AIPP-{datetime.now().year}-{current_user.id:04d}"
+
+    filename = f"certificate_{current_user.id}.pdf"
+
+    c = canvas.Canvas(
+        filename,
+        pagesize=landscape(A4)
     )
 
-    c = canvas.Canvas(filename)
+    width, height = landscape(A4)
+
+    # ==========================
+    # Background
+    # ==========================
+
+    c.setFillColorRGB(0.06, 0.13, 0.42)
+    c.rect(
+        0,
+        0,
+        width,
+        height,
+        fill=1,
+        stroke=0
+    )
+
+    # ==========================
+    # Outer Border
+    # ==========================
+
+    c.setStrokeColor(colors.gold)
+    c.setLineWidth(8)
+
+    c.rect(
+        20,
+        20,
+        width - 40,
+        height - 40
+    )
+
+    c.setLineWidth(2)
+
+    c.rect(
+        35,
+        35,
+        width - 70,
+        height - 70
+    )
+
+    # ==========================
+    # Header
+    # ==========================
+
+    c.setFillColor(colors.white)
+
+    c.setFont(
+        "Helvetica-Bold",
+        18
+    )
+
+    c.drawCentredString(
+        width / 2,
+        height - 50,
+        "AI PLACEMENT PORTAL"
+    )
+
+    # ==========================
+    # Title
+    # ==========================
+
+    c.setFillColor(colors.gold)
+
+    c.setFont(
+        "Helvetica-Bold",
+        32
+    )
+
+    c.drawCentredString(
+        width / 2,
+        height - 110,
+        "CERTIFICATE OF EXCELLENCE"
+    )
+
+    c.setFont(
+        "Helvetica",
+        12
+    )
+
+    c.drawCentredString(
+        width / 2,
+        height - 135,
+        f"Certificate ID : {cert_id}"
+    )
+
+    # ==========================
+    # Award
+    # ==========================
+
+    if readiness >= 95:
+        award = "PLATINUM ACHIEVEMENT AWARD"
+    elif readiness >= 85:
+        award = "GOLD ACHIEVEMENT AWARD"
+    else:
+        award = "SILVER ACHIEVEMENT AWARD"
+
+    c.setFont(
+        "Helvetica-Bold",
+        18
+    )
+
+    c.drawCentredString(
+        width / 2,
+        height - 185,
+        award
+    )
+
+    # ==========================
+    # Gold Badge
+    # ==========================
+
+    c.setFillColor(colors.gold)
+
+    c.circle(
+        width - 140,
+        height - 220,
+        35,
+        fill=1
+    )
+
+    c.setFillColor(colors.black)
+
+    c.setFont(
+        "Helvetica-Bold",
+        9
+    )
+
+    c.drawCentredString(
+        width - 140,
+        height - 215,
+        "TOP"
+    )
+
+    c.drawCentredString(
+        width - 140,
+        height - 228,
+        "CANDIDATE"
+    )
+
+    # ==========================
+    # Main Text
+    # ==========================
+
+    c.setFillColor(colors.white)
+
+    c.setFont(
+        "Helvetica",
+        18
+    )
+
+    c.drawCentredString(
+        width / 2,
+        height - 250,
+        "This Certificate is Proudly Awarded To"
+    )
+
+    c.setFillColor(colors.gold)
+
+    c.setFont(
+        "Helvetica-Bold",
+        30
+    )
+
+    c.drawCentredString(
+        width / 2,
+        height - 310,
+        current_user.name.upper()
+    )
+
+    c.setFillColor(colors.white)
+
+    c.setFont(
+        "Helvetica",
+        17
+    )
+
+    c.drawCentredString(
+        width / 2,
+        height - 360,
+        "For Successfully Completing"
+    )
+
+    c.setFont(
+        "Helvetica-Bold",
+        20
+    )
+
+    c.drawCentredString(
+        width / 2,
+        height - 395,
+        "AI-Powered Placement Preparation"
+    )
+
+    c.drawCentredString(
+        width / 2,
+        height - 425,
+        "and Career Guidance Program"
+    )
+
+    # ==========================
+    # Readiness Score
+    # ==========================
+
+    c.setFillColor(colors.gold)
 
     c.setFont(
         "Helvetica-Bold",
@@ -731,67 +1187,85 @@ def certificate():
     )
 
     c.drawCentredString(
-        300,
-        750,
-        "CERTIFICATE OF ACHIEVEMENT"
+        width / 2,
+        height - 485,
+        f"Placement Readiness Score : {readiness}%"
     )
 
-    c.setFont(
-        "Helvetica",
-        16
-    )
+    # ==========================
+    # Achievement Line
+    # ==========================
 
-    c.drawCentredString(
-        300,
-        680,
-        "This is to certify that"
-    )
+    c.setFillColor(colors.gold)
 
     c.setFont(
         "Helvetica-Bold",
-        22
+        14
     )
 
     c.drawCentredString(
-        300,
-        630,
-        current_user.name
+        width / 2,
+        70,
+        "TOP PLACEMENT READY CANDIDATE"
     )
+
+    # ==========================
+    # Date
+    # ==========================
+
+    c.setFillColor(colors.white)
 
     c.setFont(
         "Helvetica",
-        16
-    )
-
-    c.drawCentredString(
-        300,
-        580,
-        "has successfully completed"
-    )
-
-    c.drawCentredString(
-        300,
-        550,
-        "AI Placement Preparation Program"
-    )
-
-    c.drawCentredString(
-        300,
-        500,
-        f"Readiness Score: {readiness}%"
+        11
     )
 
     c.drawString(
-        50,
-        100,
-        "AI Placement Portal"
+        60,
+        45,
+        f"Issue Date : {datetime.now().strftime('%d-%m-%Y')}"
+    )
+
+    # ==========================
+    # Verified
+    # ==========================
+
+    c.setFillColor(colors.green)
+
+    c.setFont(
+        "Helvetica-Bold",
+        13
+    )
+
+    c.drawRightString(
+        width - 60,
+        45,
+        "✓ VERIFIED"
+    )
+
+    # ==========================
+    # Footer
+    # ==========================
+
+    c.setFillColor(colors.white)
+
+    c.setFont(
+        "Helvetica-Oblique",
+        8
+    )
+
+    c.drawCentredString(
+        width / 2,
+        25,
+        "This certificate is digitally generated and verified by AI Placement Portal."
     )
 
     c.save()
 
     return send_file(
         filename,
-        as_attachment=True
+        as_attachment=True,
+        download_name=f"{current_user.name}_Certificate.pdf"
     )
 
 from flask import session
@@ -1439,42 +1913,6 @@ def activity_history():
 
     )
 
-class PerformanceHistory(db.Model):
-
-    id = db.Column(
-        db.Integer,
-        primary_key=True
-    )
-
-    student_id = db.Column(
-        db.Integer
-    )
-
-    aptitude = db.Column(
-        db.Integer
-    )
-
-    coding = db.Column(
-        db.Integer
-    )
-
-    interview = db.Column(
-        db.Integer
-    )
-
-    resume = db.Column(
-        db.Integer
-    )
-
-    readiness = db.Column(
-        db.Integer
-    )
-
-    created_at = db.Column(
-        db.DateTime,
-        default=datetime.utcnow
-    )
-
 def save_performance(student):
 
     readiness = calculate_readiness(
@@ -1537,26 +1975,31 @@ def performance():
 
     )
 
+class PerformanceHistory(db.Model):
+    __tablename__ = "performance_history"
+
+    id = db.Column(db.Integer, primary_key=True)
+    student_id = db.Column(db.Integer, nullable=False)
+
+    aptitude = db.Column(db.Integer, default=0)
+    coding = db.Column(db.Integer, default=0)
+    interview = db.Column(db.Integer, default=0)
+    resume = db.Column(db.Integer, default=0)
+
+    readiness = db.Column(db.Float, default=0)
+
+    created_at = db.Column(
+        db.DateTime,
+        default=datetime.utcnow
+    )
+
 class Notification(db.Model):
+    __tablename__ = "notification"
 
-    id = db.Column(
-        db.Integer,
-        primary_key=True
-    )
-
-    student_id = db.Column(
-        db.Integer
-    )
-
-    message = db.Column(
-        db.String(300)
-    )
-
-    is_read = db.Column(
-        db.Boolean,
-        default=False
-    )
-
+    id = db.Column(db.Integer, primary_key=True)
+    student_id = db.Column(db.Integer)
+    message = db.Column(db.String(500))
+    is_read = db.Column(db.Boolean, default=False)
     created_at = db.Column(
         db.DateTime,
         default=datetime.utcnow
@@ -1677,6 +2120,9 @@ def export_students():
         }
 
     )
+
+with app.app_context():
+    db.create_all()
 
 # ==========================
 # Run Application

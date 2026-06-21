@@ -441,76 +441,124 @@ Master coding interviews and placement challenges
 
 <div class="question-card">
 
+```
 <div class="question-title">
-
-{{ q.title }}
-
+    {{ q.title }}
 </div>
 
 <span class="badge bg-primary">
-
-{{ q.difficulty }}
-
+    {{ q.difficulty }}
 </span>
 
 <div class="description">
+    {{ q.description }}
+</div>
 
-{{ q.description }}
+<div class="sample-box">
+
+    <h5>📥 Sample Input</h5>
+
+    <pre>{{ q.sample_input }}</pre>
 
 </div>
 
 <div class="sample-box">
 
-<h5>
-📥 Sample Input
-</h5>
+    <h5>📤 Sample Output</h5>
 
-<pre>{{ q.sample_input }}</pre>
+    <pre>{{ q.sample_output }}</pre>
 
 </div>
 
-<div class="sample-box">
+<!-- Run Code -->
 
-<h5>
-📤 Sample Output
-</h5>
+<form action="/run-code" method="POST">
 
-<pre>{{ q.sample_output }}</pre>
+    <input
+        type="hidden"
+        name="question_id"
+        value="{{ q.id }}">
 
-</div>
+    <textarea
+        name="code"
+        class="form-control code-editor"
+        placeholder="Write your solution here..."
+        required></textarea>
 
-<textarea
-class="form-control code-editor"
-placeholder="Write your solution here..."></textarea>
+    <div class="action-row">
 
-<div class="action-row">
+        <button
+            type="submit"
+            class="run-btn">
 
-<button
-class="run-btn">
+            ▶ Run Code
 
-▶ Run Code
+        </button>
 
-</button>
+    </div>
 
-<button
-class="submit-btn">
+</form>
 
-🚀 Submit Solution
+<!-- Submit Solution -->
 
-</button>
+<form
+    action="/submit-solution"
+    method="POST">
 
-<button
-class="ai-btn">
+    <input
+        type="hidden"
+        name="question_id"
+        value="{{ q.id }}">
 
-🤖 AI Review
+    <div class="action-row">
 
-</button>
+        <button
+            type="submit"
+            class="submit-btn">
 
-</div>
+            🚀 Submit Solution
+
+        </button>
+
+    </div>
+
+</form>
+
+<!-- AI Review -->
+
+<form
+    action="/ai-review"
+    method="POST">
+
+    <input
+        type="hidden"
+        name="question_id"
+        value="{{ q.id }}">
+
+    <textarea
+        name="code"
+        class="form-control code-editor"
+        placeholder="Paste code for AI Review..."
+        required></textarea>
+
+    <div class="action-row">
+
+        <button
+            type="submit"
+            class="ai-btn">
+
+            🤖 AI Review
+
+        </button>
+
+    </div>
+
+</form>
 
 </div>
 
 {% endfor %}
+
 
 <script>
 
