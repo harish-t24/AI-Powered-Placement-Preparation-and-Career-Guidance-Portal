@@ -1,9 +1,13 @@
 import google.generativeai as genai
 
-from config import Config
+from dotenv import load_dotenv
+import os
+import google.generativeai as genai
+
+load_dotenv()
 
 genai.configure(
-    api_key=Config.GEMINI_API_KEY
+    api_key=os.getenv("GOOGLE_API_KEY")
 )
 
 model = genai.GenerativeModel(

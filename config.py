@@ -29,3 +29,22 @@ import os
 API_KEY = os.getenv(
     "GOOGLE_API_KEY"
 )
+
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
+class Config:
+
+    SECRET_KEY = os.getenv(
+        "SECRET_KEY"
+    )
+
+    GEMINI_API_KEY = os.getenv(
+        "GOOGLE_API_KEY"
+    )
+
+    SQLALCHEMY_DATABASE_URI = "sqlite:///database.db"
+
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
