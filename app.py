@@ -5,15 +5,16 @@ from flask import redirect
 from flask import url_for
 from flask import flash
 from datetime import datetime
-import google.generativeai as genai
-import os
-genai.configure(
-    api_key=os.getenv("GOOGLE_API_KEY")
-)
 from dotenv import load_dotenv
 import os
 
 load_dotenv()
+
+import google.generativeai as genai
+
+genai.configure(
+    api_key=os.getenv("GOOGLE_API_KEY")
+)
 
 model = genai.GenerativeModel(
     "gemini-1.5-flash"
