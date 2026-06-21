@@ -1,0 +1,1672 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>
+AI Placement Portal Dashboard
+</title>
+
+<link
+href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+rel="stylesheet">
+
+<link
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<link
+rel="manifest"
+href="/static/manifest.json">
+
+<script
+src="https://cdn.jsdelivr.net/npm/chart.js">
+</script>
+
+<link
+href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+rel="stylesheet">
+
+<style>
+
+*{
+
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+
+}
+
+body{
+
+background:
+linear-gradient(
+135deg,
+#0f172a,
+#1e293b,
+#2563eb,
+#06b6d4
+);
+
+background-size:
+400% 400%;
+
+animation:
+gradientBG 12s ease infinite;
+
+color:white;
+
+min-height:100vh;
+
+overflow-x:hidden;
+
+}
+
+@keyframes gradientBG{
+
+0%{
+background-position:0% 50%;
+}
+
+50%{
+background-position:100% 50%;
+}
+
+100%{
+background-position:0% 50%;
+}
+
+}
+
+.navbar{
+
+background:
+rgba(2,6,23,0.85);
+
+backdrop-filter:
+blur(15px);
+
+border-bottom:
+1px solid rgba(255,255,255,0.1);
+
+}
+
+.glass-card{
+
+background:
+rgba(255,255,255,0.08);
+
+backdrop-filter:
+blur(20px);
+
+border:
+1px solid rgba(255,255,255,0.1);
+
+border-radius:25px;
+
+transition:0.4s;
+
+color:white;
+
+overflow:hidden;
+
+}
+
+.glass-card:hover{
+
+transform:
+translateY(-8px);
+
+box-shadow:
+0 15px 35px rgba(56,189,248,0.25);
+
+}
+
+.dashboard-title{
+
+font-size:3rem;
+
+font-weight:700;
+
+}
+
+.score{
+
+font-size:2.5rem;
+
+font-weight:700;
+
+}
+
+.hero-card{
+
+padding:35px;
+
+margin-bottom:25px;
+
+}
+
+.hero-avatar{
+
+width:120px;
+
+height:120px;
+
+border-radius:50%;
+
+background:
+linear-gradient(
+135deg,
+#06b6d4,
+#3b82f6
+);
+
+display:flex;
+
+justify-content:center;
+align-items:center;
+
+font-size:55px;
+
+margin:auto;
+
+animation:
+floatAvatar 3s ease-in-out infinite;
+
+}
+
+@keyframes floatAvatar{
+
+0%{
+transform:translateY(0);
+}
+
+50%{
+transform:translateY(-10px);
+}
+
+100%{
+transform:translateY(0);
+}
+
+}
+
+.chart-container{
+
+background:
+rgba(255,255,255,0.08);
+
+backdrop-filter:
+blur(20px);
+
+border-radius:25px;
+
+padding:25px;
+
+}
+
+.company-badge{
+
+padding:12px 18px;
+
+margin:5px;
+
+font-size:14px;
+
+border-radius:25px;
+
+}
+
+.action-btn{
+
+margin:5px;
+
+border-radius:12px;
+
+font-weight:600;
+
+padding:10px 18px;
+
+transition:0.3s;
+
+}
+
+.action-btn:hover{
+
+transform:
+translateY(-3px);
+
+}
+
+.fade-up{
+
+animation:
+fadeUp 1s ease;
+
+}
+
+@keyframes fadeUp{
+
+from{
+
+opacity:0;
+
+transform:
+translateY(25px);
+
+}
+
+to{
+
+opacity:1;
+
+transform:
+translateY(0);
+
+}
+
+}
+
+.badge-box{
+
+padding:12px 18px;
+
+border-radius:20px;
+
+font-size:14px;
+
+margin:5px;
+
+display:inline-block;
+
+}
+
+.footer{
+
+text-align:center;
+
+padding:20px;
+
+margin-top:30px;
+
+color:#cbd5e1;
+
+}
+
+#installBtn{
+
+border:none;
+
+padding:10px 18px;
+
+border-radius:50px;
+
+background:
+linear-gradient(
+135deg,
+#10b981,
+#06b6d4
+);
+
+color:white;
+
+font-weight:600;
+
+}
+
+.progress-ring{
+
+width:160px;
+height:160px;
+
+border-radius:50%;
+
+background:
+conic-gradient(
+#10b981 0deg,
+#10b981 calc(var(--value) * 3.6deg),
+rgba(255,255,255,0.1) 0deg
+);
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+margin:auto;
+
+}
+
+.progress-inner{
+
+width:120px;
+height:120px;
+
+background:#0f172a;
+
+border-radius:50%;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+font-size:30px;
+
+font-weight:700;
+
+}
+
+.stat-icon{
+
+font-size:40px;
+
+margin-bottom:10px;
+
+}
+
+.quick-title{
+
+font-size:22px;
+
+font-weight:600;
+
+margin-bottom:15px;
+
+}
+
+::-webkit-scrollbar{
+
+width:8px;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+background:#3b82f6;
+
+border-radius:10px;
+
+}
+#aiAssistantBtn{
+
+cursor:pointer;
+
+position:fixed;
+
+bottom:25px;
+
+right:25px;
+
+z-index:9999;
+
+}
+
+css
+.ai-popup{
+
+position:fixed;
+
+bottom:100px;
+
+right:25px;
+
+width:380px;
+
+height:500px;
+
+display:none;
+
+background:white;
+
+border-radius:20px;
+
+overflow:hidden;
+
+box-shadow:
+0 10px 40px rgba(0,0,0,0.3);
+
+z-index:9999;
+
+}
+
+.ai-popup-header{
+
+background:#2563eb;
+
+color:white;
+
+padding:15px;
+
+font-size:18px;
+
+font-weight:600;
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+}
+
+.chat-messages{
+
+height:340px;
+
+overflow-y:auto;
+
+padding:15px;
+
+background:#f5f7fb;
+
+}
+
+.bot-message{
+
+background:#dbeafe;
+
+padding:12px;
+
+border-radius:12px;
+
+margin-bottom:10px;
+
+max-width:90%;
+
+}
+
+.user-message{
+
+background:#2563eb;
+
+color:white;
+
+padding:12px;
+
+border-radius:12px;
+
+margin-bottom:10px;
+
+margin-left:auto;
+
+max-width:90%;
+
+}
+
+.chat-input-area{
+
+padding:15px;
+
+background:white;
+
+border-top:1px solid #eee;
+
+}
+
+.floating-ai-btn{
+
+position:fixed;
+
+bottom:25px;
+
+right:25px;
+
+width:70px;
+
+height:70px;
+
+border:none;
+
+border-radius:50%;
+
+font-size:30px;
+
+background:#2563eb;
+
+color:white;
+
+cursor:pointer;
+
+z-index:10000;
+
+}
+</style>
+
+</head>
+<body>
+
+<div id="tsparticles"></div>
+
+<nav class="navbar navbar-expand-lg navbar-dark">
+
+<div class="container">
+
+<a class="navbar-brand fw-bold"
+href="#">
+
+<i class="fa-solid fa-graduation-cap"></i>
+
+AI Placement Portal
+
+</a>
+
+<div>
+
+<button
+id="installBtn"
+style="display:none">
+
+📱 Install App
+
+</button>
+
+<a href="/logout"
+class="btn btn-danger ms-2">
+
+<i class="fa-solid fa-right-from-bracket"></i>
+
+Logout
+
+</a>
+
+</div>
+
+</div>
+
+</nav>
+
+<div class="container mt-4 fade-up">
+
+<div class="glass-card hero-card">
+
+<div class="row align-items-center">
+
+<div class="col-lg-3 text-center">
+
+<div class="hero-avatar">
+
+<i class="fa-solid fa-user-graduate"></i>
+
+</div>
+
+</div>
+
+<div class="col-lg-9">
+
+<h1 class="dashboard-title">
+
+Welcome,
+
+{{ student.name }}
+
+👋
+
+</h1>
+
+<p class="mt-3 text-light">
+
+Your AI Placement Assistant is helping you improve your aptitude,
+coding, interview, and resume skills.
+
+Keep learning consistently to increase your placement readiness score.
+
+</p>
+
+<div class="row mt-4">
+
+<div class="col-md-4">
+
+<div class="glass-card p-3 text-center">
+
+<h6>
+
+🎯 Placement Readiness
+
+</h6>
+
+<div class="score text-success">
+
+{{ readiness }}%
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-4">
+
+<div class="glass-card p-3 text-center">
+
+<h6>
+
+🚀 Placement Chance
+
+</h6>
+
+<div class="score text-warning">
+
+{{ placement_probability }}%
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-4">
+
+<div class="glass-card p-3 text-center">
+
+<h6>
+
+🔥 Current Streak
+
+</h6>
+
+<div class="score text-info">
+
+{{ student.streak }}
+
+</div>
+
+<p class="small">
+
+Activities Completed
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="row g-4 mt-2 fade-up">
+
+<div class="col-md-3">
+
+<div class="glass-card text-center p-4">
+
+<div class="stat-icon text-warning">
+
+<i class="fa-solid fa-brain"></i>
+
+</div>
+
+<h5>
+
+Aptitude
+
+</h5>
+
+<div class="score text-warning">
+
+{{ student.aptitude_score }}
+
+</div>
+
+<div class="progress mt-3">
+
+<div
+class="progress-bar bg-warning progress-bar-striped progress-bar-animated"
+style="width: {{ student.aptitude_score }}%;">
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="glass-card text-center p-4">
+
+<div class="stat-icon text-success">
+
+<i class="fa-solid fa-code"></i>
+
+</div>
+
+<h5>
+
+Coding
+
+</h5>
+
+<div class="score text-success">
+
+{{ student.coding_score }}
+
+</div>
+
+<div class="progress mt-3">
+
+<div
+class="progress-bar bg-success progress-bar-striped progress-bar-animated"
+style="width: {{ student.coding_score }}%;">
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="glass-card text-center p-4">
+
+<div class="stat-icon text-info">
+
+<i class="fa-solid fa-user-tie"></i>
+
+</div>
+
+<h5>
+
+Interview
+
+</h5>
+
+<div class="score text-info">
+
+{{ student.interview_score }}
+
+</div>
+
+<div class="progress mt-3">
+
+<div
+class="progress-bar bg-info progress-bar-striped progress-bar-animated"
+style="width: {{ student.interview_score }}%;">
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="glass-card text-center p-4">
+
+<div class="stat-icon text-danger">
+
+<i class="fa-solid fa-file-lines"></i>
+
+</div>
+
+<h5>
+
+Resume
+
+</h5>
+
+<div class="score text-danger">
+
+{{ student.resume_score }}
+
+</div>
+
+<div class="progress mt-3">
+
+<div
+class="progress-bar bg-danger progress-bar-striped progress-bar-animated"
+style="width: {{ student.resume_score }}%;">
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="row g-4 mt-4 fade-up">
+
+<div class="col-lg-8">
+
+<div class="chart-container">
+
+<h3 class="mb-4">
+
+📈 Performance Analytics
+
+</h3>
+
+<canvas id="scoreChart"></canvas>
+
+</div>
+
+</div>
+
+<div class="col-lg-4">
+
+<div class="glass-card p-4 text-center">
+
+<h4>
+
+🎯 Overall Readiness
+
+</h4>
+
+<br>
+
+<div
+class="progress-ring"
+style="--value: {{ readiness }}">
+
+<div class="progress-inner">
+
+{{ readiness }}%
+
+</div>
+
+</div>
+
+<br>
+
+<h5 class="text-success">
+
+Placement Ready
+
+</h5>
+
+<p class="text-light">
+
+Based on aptitude, coding,
+interview and resume scores.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="row g-4 mt-3">
+
+<div class="col-md-4">
+
+<div class="glass-card p-4 text-center">
+
+<h5>
+
+🧠 Strongest Area
+
+</h5>
+
+<h2 class="text-success">
+
+{{ strongest_skill }}
+
+</h2>
+
+</div>
+
+</div>
+
+<div class="col-md-4">
+
+<div class="glass-card p-4 text-center">
+
+<h5>
+
+⚠ Needs Improvement
+
+</h5>
+
+<h2 class="text-warning">
+
+{{ weakest_skill }}
+
+</h2>
+
+</div>
+
+</div>
+
+<div class="col-md-4">
+
+<div class="glass-card p-4 text-center">
+
+<h5>
+
+🏆 Placement Status
+
+</h5>
+
+{% if readiness >= 80 %}
+
+<h2 class="text-success">
+
+Excellent
+
+</h2>
+
+{% elif readiness >= 60 %}
+
+<h2 class="text-warning">
+
+Good
+
+</h2>
+
+{% else %}
+
+<h2 class="text-danger">
+
+Needs Work
+
+</h2>
+
+{% endif %}
+
+</div>
+
+</div>
+
+</div>
+
+<div class="row g-4 mt-4 fade-up">
+
+<div class="col-lg-6">
+
+<div class="glass-card p-4">
+
+<h3 class="mb-3">
+
+🏢 Recommended Companies
+
+</h3>
+
+<p class="text-light">
+
+Based on your performance and skill profile.
+
+</p>
+
+<div class="mt-3">
+
+{% for company in companies %}
+
+<span
+class="badge bg-primary company-badge">
+
+{{ company }}
+
+</span>
+
+{% endfor %}
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-lg-6">
+
+<div class="glass-card p-4">
+
+<h3 class="mb-3">
+
+🏅 Achievements
+
+</h3>
+
+{% if badges %}
+
+{% for badge in badges %}
+
+<span
+class="badge bg-success badge-box">
+
+🏆 {{ badge }}
+
+</span>
+
+{% endfor %}
+
+{% else %}
+
+<div class="alert alert-warning">
+
+No badges earned yet.
+Complete more activities to unlock achievements.
+
+</div>
+
+{% endif %}
+
+</div>
+
+</div>
+
+</div>
+
+<div class="glass-card p-4 mt-4 fade-up">
+
+<h3>
+
+🤖 AI Recommendations
+
+</h3>
+
+<hr>
+
+<div class="row">
+
+<div class="col-md-4">
+
+<div class="glass-card p-3 text-center">
+
+<h5>
+
+🧠 Aptitude
+
+</h5>
+
+<p>
+
+{% if student.aptitude_score < 60 %}
+
+Practice Quantitative Aptitude daily.
+
+{% elif student.aptitude_score < 80 %}
+
+Focus on speed and accuracy.
+
+{% else %}
+
+Excellent performance. Maintain consistency.
+
+{% endif %}
+
+</p>
+
+</div>
+
+</div>
+
+<div class="col-md-4">
+
+<div class="glass-card p-3 text-center">
+
+<h5>
+
+💻 Coding
+
+</h5>
+
+<p>
+
+{% if student.coding_score < 60 %}
+
+Solve basic DSA problems daily.
+
+{% elif student.coding_score < 80 %}
+
+Practice medium-level coding challenges.
+
+{% else %}
+
+Ready for advanced interview coding rounds.
+
+{% endif %}
+
+</p>
+
+</div>
+
+</div>
+
+<div class="col-md-4">
+
+<div class="glass-card p-3 text-center">
+
+<h5>
+
+🎤 Interview
+
+</h5>
+
+<p>
+
+{% if student.interview_score < 60 %}
+
+Practice mock interviews regularly.
+
+{% elif student.interview_score < 80 %}
+
+Improve communication and confidence.
+
+{% else %}
+
+Interview performance is excellent.
+
+{% endif %}
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="glass-card p-4 mt-4 fade-up">
+
+<h3>
+
+🚀 Placement Roadmap
+
+</h3>
+
+<hr>
+
+<div class="progress mb-3">
+
+<div
+class="progress-bar bg-success progress-bar-striped progress-bar-animated"
+style="width: {{ readiness }}%">
+
+{{ readiness }}%
+
+</div>
+
+</div>
+
+<ul class="list-group">
+
+<li class="list-group-item">
+
+✅ Complete Aptitude Practice
+
+</li>
+
+<li class="list-group-item">
+
+✅ Improve Coding Skills
+
+</li>
+
+<li class="list-group-item">
+
+✅ Attend Mock Interviews
+
+</li>
+
+<li class="list-group-item">
+
+✅ Build Strong Resume
+
+</li>
+
+<li class="list-group-item">
+
+🎯 Apply for Placement Drives
+
+</li>
+
+</ul>
+
+</div>
+
+<div class="glass-card p-4 mt-4 fade-up">
+
+<h2 class="mb-4">
+
+⚡ Quick Actions Center
+
+</h2>
+
+<!-- PREPARATION -->
+
+<div class="mb-4">
+
+<h4 class="text-info">
+
+📚 Preparation Hub
+
+</h4>
+
+<hr>
+
+<a href="/ai-aptitude"
+class="btn btn-warning action-btn">
+
+🧠 AI Aptitude
+
+</a>
+
+<a href="/ai-coding"
+class="btn btn-success action-btn">
+
+💻 AI Coding
+
+</a>
+
+<a href="/code-compiler"
+class="btn btn-dark action-btn">
+
+⚡ Code Compiler
+
+</a>
+
+<a href="/study-planner"
+class="btn btn-primary action-btn">
+
+📅 Study Planner
+
+</a>
+
+<a href="/weakness-analysis"
+class="btn btn-danger action-btn">
+
+🎯 Weakness Analyzer
+
+</a>
+
+</div>
+
+<!-- INTERVIEW -->
+
+<div class="mb-4">
+
+<h4 class="text-warning">
+
+🎤 Interview Preparation
+
+</h4>
+
+<hr>
+
+<a href="/interview"
+class="btn btn-primary action-btn">
+
+🤖 AI Interview
+
+</a>
+
+<a href="/technical-interview"
+class="btn btn-info action-btn">
+
+💼 Technical Interview
+
+</a>
+
+<a href="/browser-voice-interview"
+class="btn btn-warning action-btn">
+
+🎙 Voice Interview
+
+</a>
+
+<a href="/career-chat"
+class="btn btn-secondary action-btn">
+
+🚀 Career Coach
+
+</a>
+
+</div>
+
+<!-- RESUME -->
+
+<div class="mb-4">
+
+<h4 class="text-success">
+
+📄 Resume & Profile
+
+</h4>
+
+<hr>
+
+<a href="/profile"
+class="btn btn-info action-btn">
+
+👤 Profile
+
+</a>
+
+<a href="/resume"
+class="btn btn-dark action-btn">
+
+📄 Resume Analyzer
+
+</a>
+
+<a href="/resume-builder"
+class="btn btn-light action-btn">
+
+📝 Resume Builder
+
+</a>
+
+<a href="/certificate"
+class="btn btn-success action-btn">
+
+🏅 Certificate
+
+</a>
+
+</div>
+
+<!-- ANALYTICS -->
+
+<div class="mb-4">
+
+<h4 class="text-danger">
+
+📈 Analytics & Tracking
+
+</h4>
+
+<hr>
+
+<a href="/progress"
+class="btn btn-info action-btn">
+
+📊 Progress Tracker
+
+</a>
+
+<a href="/performance"
+class="btn btn-primary action-btn">
+
+📈 Analytics
+
+</a>
+
+<a href="/activity-history"
+class="btn btn-secondary action-btn">
+
+📅 Activity History
+
+</a>
+
+<a href="/leaderboard_page"
+class="btn btn-success action-btn">
+
+🏆 Leaderboard
+
+</a>
+
+</div>
+
+<!-- UTILITIES -->
+
+<div>
+
+<h4 class="text-light">
+
+⚙ Utilities
+
+</h4>
+
+<hr>
+
+<a href="/notifications"
+class="btn btn-warning action-btn">
+
+🔔 Notifications
+
+</a>
+
+<a href="/download-report"
+class="btn btn-danger action-btn">
+
+📥 Download PDF Report
+
+</a>
+
+</div>
+
+</div>
+
+<!-- FOOTER -->
+
+<div class="footer">
+
+<hr>
+
+<h5>
+
+🎓 AI Placement Portal
+
+</h5>
+
+<p>
+
+AI Powered Placement Preparation System
+
+</p>
+
+<p>
+
+Built with Flask • Gemini AI • Bootstrap • Chart.js
+
+</p>
+
+<p>
+
+© 2026 All Rights Reserved
+
+</p>
+
+</div>
+
+
+
+
+
+
+</div>
+
+<!-- PARTICLES JS -->
+
+<script src="https://cdn.jsdelivr.net/npm/tsparticles@2/tsparticles.bundle.min.js"></script>
+
+<script>
+
+tsParticles.load("tsparticles",{
+
+particles:{
+
+number:{
+value:60
+},
+
+size:{
+value:3
+},
+
+move:{
+enable:true,
+speed:1
+},
+
+opacity:{
+value:0.3
+},
+
+links:{
+enable:true,
+distance:150,
+opacity:0.2
+}
+
+}
+
+});
+
+</script>
+
+<script>
+
+document.getElementById(
+'aiAssistantBtn'
+).onclick=function(){
+
+document.getElementById(
+'aiPopup'
+).style.display='block';
+
+};
+
+function closeAI(){
+
+document.getElementById(
+'aiPopup'
+).style.display='none';
+
+}
+
+</script>
+
+<script>
+
+if(
+'serviceWorker'
+in navigator
+){
+
+navigator.serviceWorker.register(
+'/static/sw.js'
+);
+
+}
+
+</script>
+
+<script>
+
+let deferredPrompt;
+
+window.addEventListener(
+
+'beforeinstallprompt',
+
+(e)=>{
+
+e.preventDefault();
+
+deferredPrompt=e;
+
+document.getElementById(
+'installBtn'
+).style.display='inline-block';
+
+}
+
+);
+
+document.getElementById(
+'installBtn'
+).addEventListener(
+
+'click',
+
+()=>{
+
+if(
+deferredPrompt
+){
+
+deferredPrompt.prompt();
+
+}
+
+}
+
+);
+
+</script>
+<script>
+
+function sendMessage(){
+
+let msg =
+document.getElementById(
+"userMessage"
+).value;
+
+if(!msg) return;
+
+let chat =
+document.getElementById(
+"chatMessages"
+);
+
+chat.innerHTML +=
+
+`
+<div class="alert alert-secondary">
+${msg}
+</div>
+`;
+
+fetch(
+"/assistant-chat",
+{
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify({
+message:msg
+})
+}
+)
+
+.then(r=>r.json())
+
+.then(data=>{
+
+chat.innerHTML +=
+
+`
+<div class="alert alert-success">
+${data.reply}
+</div>
+`;
+
+});
+
+document.getElementById(
+"userMessage"
+).value="";
+
+}
+
+</script>
+</body>
+</html>

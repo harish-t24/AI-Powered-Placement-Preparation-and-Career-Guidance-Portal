@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Notifications</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+rel="stylesheet">
+
+<link rel="manifest"
+href="/static/manifest.json">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+
+min-height:100vh;
+
+background:
+linear-gradient(
+135deg,
+#0f172a,
+#1e293b,
+#2563eb,
+#06b6d4
+);
+
+background-size:400% 400%;
+
+animation:
+gradientBG 12s ease infinite;
+
+color:white;
+
+padding:30px;
+
+}
+
+@keyframes gradientBG{
+
+0%{
+background-position:0% 50%;
+}
+
+50%{
+background-position:100% 50%;
+}
+
+100%{
+background-position:0% 50%;
+}
+
+}
+
+.glass-card{
+
+background:
+rgba(255,255,255,0.08);
+
+backdrop-filter:
+blur(20px);
+
+border:
+1px solid rgba(255,255,255,0.1);
+
+border-radius:30px;
+
+padding:30px;
+
+box-shadow:
+0 20px 40px rgba(0,0,0,0.25);
+
+animation:
+fadeUp 1s ease;
+
+}
+
+@keyframes fadeUp{
+
+from{
+opacity:0;
+transform:translateY(40px);
+}
+
+to{
+opacity:1;
+transform:translateY(0);
+}
+
+}
+
+.page-title{
+
+font-size:3rem;
+
+font-weight:700;
+
+text-align:center;
+
+margin-bottom:10px;
+
+}
+
+.page-subtitle{
+
+text-align:center;
+
+color:#cbd5e1;
+
+margin-bottom:30px;
+
+}
+
+.notification-card{
+
+background:
+rgba(255,255,255,0.08);
+
+border:
+1px solid rgba(255,255,255,0.1);
+
+border-radius:20px;
+
+padding:20px;
+
+margin-bottom:15px;
+
+transition:0.3s;
+
+}
+
+.notification-card:hover{
+
+transform:
+translateY(-5px);
+
+box-shadow:
+0 10px 25px rgba(59,130,246,0.25);
+
+}
+
+.notification-icon{
+
+font-size:28px;
+
+margin-right:15px;
+
+color:#facc15;
+
+}
+
+.notification-time{
+
+color:#cbd5e1;
+
+font-size:13px;
+
+}
+
+.empty-box{
+
+text-align:center;
+
+padding:50px;
+
+background:
+rgba(255,255,255,0.08);
+
+border-radius:20px;
+
+}
+
+.dashboard-btn{
+
+padding:14px 35px;
+
+border-radius:50px;
+
+font-size:18px;
+
+font-weight:600;
+
+margin-top:25px;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+{% include 'navbar.html' %}
+<div class="glass-card">
+
+<h1 class="page-title">
+
+🔔 Notifications
+
+</h1>
+
+<p class="page-subtitle">
+
+Stay updated with your placement activities and AI recommendations
+
+</p>
+
+{% if notifications %}
+
+{% for notification in notifications %}
+
+<div class="notification-card">
+
+<div class="d-flex">
+
+<div class="notification-icon">
+
+🔔
+
+</div>
+
+<div>
+
+<h5>
+
+{{ notification.message }}
+
+</h5>
+
+<div class="notification-time">
+
+📅 {{ notification.created_at }}
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+{% endfor %}
+
+{% else %}
+
+<div class="empty-box">
+
+<h2>
+
+📭 No Notifications
+
+</h2>
+
+<p>
+
+You don't have any notifications yet.
+
+</p>
+
+</div>
+
+{% endif %}
+
+<div class="text-center">
+
+<a href="/dashboard"
+class="btn btn-success dashboard-btn">
+
+🏠 Back To Dashboard
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+if(
+'serviceWorker'
+in navigator
+){
+
+navigator.serviceWorker.register(
+'/static/sw.js'
+);
+
+}
+
+</script>
+
+</body>
+
+</html>

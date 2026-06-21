@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Student Profile</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+rel="stylesheet">
+
+<link rel="manifest"
+href="/static/manifest.json">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+
+min-height:100vh;
+
+background:
+linear-gradient(
+135deg,
+#0f172a,
+#1e293b,
+#2563eb,
+#06b6d4
+);
+
+background-size:400% 400%;
+
+animation:
+gradientBG 12s ease infinite;
+
+color:white;
+
+padding:30px;
+
+}
+
+@keyframes gradientBG{
+
+0%{
+background-position:0% 50%;
+}
+
+50%{
+background-position:100% 50%;
+}
+
+100%{
+background-position:0% 50%;
+}
+
+}
+
+.profile-card{
+
+max-width:1000px;
+
+margin:auto;
+
+background:
+rgba(255,255,255,0.08);
+
+backdrop-filter:
+blur(20px);
+
+border:
+1px solid rgba(255,255,255,0.1);
+
+border-radius:30px;
+
+padding:40px;
+
+box-shadow:
+0 20px 40px rgba(0,0,0,0.3);
+
+animation:
+fadeUp 1s ease;
+
+}
+
+@keyframes fadeUp{
+
+from{
+opacity:0;
+transform:translateY(40px);
+}
+
+to{
+opacity:1;
+transform:translateY(0);
+}
+
+}
+
+.avatar{
+
+width:140px;
+height:140px;
+
+border-radius:50%;
+
+background:
+linear-gradient(
+135deg,
+#06b6d4,
+#3b82f6
+);
+
+display:flex;
+
+justify-content:center;
+align-items:center;
+
+font-size:60px;
+
+margin:auto;
+
+animation:
+floatAvatar 3s infinite;
+
+}
+
+@keyframes floatAvatar{
+
+0%{
+transform:translateY(0);
+}
+
+50%{
+transform:translateY(-10px);
+}
+
+100%{
+transform:translateY(0);
+}
+
+}
+
+.student-name{
+
+font-size:2rem;
+
+font-weight:700;
+
+margin-top:20px;
+
+}
+
+.info-box{
+
+background:
+rgba(255,255,255,0.08);
+
+padding:15px;
+
+border-radius:15px;
+
+margin-top:10px;
+
+}
+
+.score-card{
+
+background:
+rgba(255,255,255,0.08);
+
+padding:20px;
+
+border-radius:20px;
+
+text-align:center;
+
+height:100%;
+
+transition:0.3s;
+
+}
+
+.score-card:hover{
+
+transform:
+translateY(-5px);
+
+}
+
+.score-value{
+
+font-size:32px;
+
+font-weight:700;
+
+}
+
+.btn-custom{
+
+padding:14px 30px;
+
+border-radius:50px;
+
+font-weight:600;
+
+margin:5px;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="profile-card">
+
+<div class="text-center">
+
+<div class="avatar">
+
+👨‍🎓
+
+</div>
+
+<div class="student-name">
+
+{{ student.name }}
+
+</div>
+
+<p class="text-light">
+
+Student Profile
+
+</p>
+
+</div>
+
+<hr>
+
+<div class="row">
+
+<div class="col-md-6">
+
+<div class="info-box">
+
+<strong>📧 Email:</strong>
+
+{{ student.email }}
+
+</div>
+
+</div>
+
+<div class="col-md-6">
+
+<div class="info-box">
+
+<strong>🎯 Placement Status:</strong>
+
+Active
+
+</div>
+
+</div>
+
+</div>
+
+<br>
+
+<h3 class="text-center mb-4">
+
+📊 Performance Overview
+
+</h3>
+
+<div class="row g-4">
+
+<div class="col-md-3">
+
+<div class="score-card">
+
+<h5>
+
+🧠 Aptitude
+
+</h5>
+
+<div class="score-value text-warning">
+
+{{ student.aptitude_score }}
+
+</div>
+
+<div class="progress mt-3">
+
+<div
+class="progress-bar bg-warning"
+style="width: {{ student.aptitude_score }}%">
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="score-card">
+
+<h5>
+
+💻 Coding
+
+</h5>
+
+<div class="score-value text-success">
+
+{{ student.coding_score }}
+
+</div>
+
+<div class="progress mt-3">
+
+<div
+class="progress-bar bg-success"
+style="width: {{ student.coding_score }}%">
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="score-card">
+
+<h5>
+
+🎤 Interview
+
+</h5>
+
+<div class="score-value text-info">
+
+{{ student.interview_score }}
+
+</div>
+
+<div class="progress mt-3">
+
+<div
+class="progress-bar bg-info"
+style="width: {{ student.interview_score }}%">
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="score-card">
+
+<h5>
+
+📄 Resume
+
+</h5>
+
+<div class="score-value text-danger">
+
+{{ student.resume_score }}
+
+</div>
+
+<div class="progress mt-3">
+
+<div
+class="progress-bar bg-danger"
+style="width: {{ student.resume_score }}%">
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="text-center mt-5">
+
+<a href="javascript:history.back()"
+class="btn btn-secondary btn-custom">
+
+⬅ Back
+
+</a>
+
+<a href="/dashboard"
+class="btn btn-success btn-custom">
+
+🏠 Dashboard
+
+</a>
+
+</div>
+
+</div>
+
+<script>
+
+if(
+'serviceWorker'
+in navigator
+){
+
+navigator.serviceWorker.register(
+'/static/sw.js'
+);
+
+}
+
+</script>
+
+</body>
+
+</html>

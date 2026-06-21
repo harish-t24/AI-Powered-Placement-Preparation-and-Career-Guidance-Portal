@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Aptitude Test</title>
+</head>
+
+<body>
+
+<h2>Aptitude Test</h2>
+
+<form method="POST">
+
+{% for q in questions %}
+
+<p><b>{{ q.question }}</b></p>
+
+<input type="radio"
+       name="question_{{q.id}}"
+       value="{{q.option1}}">
+{{q.option1}}
+
+<br>
+
+<input type="radio"
+       name="question_{{q.id}}"
+       value="{{q.option2}}">
+{{q.option2}}
+
+<br>
+
+<input type="radio"
+       name="question_{{q.id}}"
+       value="{{q.option3}}">
+{{q.option3}}
+
+<br>
+
+<input type="radio"
+       name="question_{{q.id}}"
+       value="{{q.option4}}">
+{{q.option4}}
+
+<hr>
+
+{% endfor %}
+
+<button type="submit">
+Submit Test
+</button>
+
+</form>
+
+</body>
+</html>

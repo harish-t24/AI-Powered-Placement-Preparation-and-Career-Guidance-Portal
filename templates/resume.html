@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Resume Analyzer</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+rel="stylesheet">
+
+<link rel="manifest"
+href="/static/manifest.json">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+
+min-height:100vh;
+
+background:
+linear-gradient(
+135deg,
+#0f172a,
+#1e293b,
+#2563eb,
+#06b6d4
+);
+
+background-size:400% 400%;
+
+animation:
+gradientBG 12s ease infinite;
+
+color:white;
+
+padding:30px;
+
+}
+
+@keyframes gradientBG{
+
+0%{
+background-position:0% 50%;
+}
+
+50%{
+background-position:100% 50%;
+}
+
+100%{
+background-position:0% 50%;
+}
+
+}
+
+.analyzer-card{
+
+max-width:1000px;
+
+margin:auto;
+
+background:
+rgba(255,255,255,0.08);
+
+backdrop-filter:
+blur(20px);
+
+border:
+1px solid rgba(255,255,255,0.1);
+
+border-radius:30px;
+
+padding:40px;
+
+box-shadow:
+0 20px 40px rgba(0,0,0,0.3);
+
+animation:
+fadeUp 1s ease;
+
+}
+
+@keyframes fadeUp{
+
+from{
+opacity:0;
+transform:translateY(40px);
+}
+
+to{
+opacity:1;
+transform:translateY(0);
+}
+
+}
+
+.resume-icon{
+
+font-size:90px;
+
+text-align:center;
+
+margin-bottom:20px;
+
+animation:
+floatIcon 3s infinite ease-in-out;
+
+}
+
+@keyframes floatIcon{
+
+0%{
+transform:translateY(0);
+}
+
+50%{
+transform:translateY(-10px);
+}
+
+100%{
+transform:translateY(0);
+}
+
+}
+
+.title{
+
+font-size:3rem;
+
+font-weight:700;
+
+text-align:center;
+
+margin-bottom:10px;
+
+}
+
+.subtitle{
+
+text-align:center;
+
+color:#cbd5e1;
+
+margin-bottom:30px;
+
+}
+
+.upload-box{
+
+border:3px dashed rgba(255,255,255,0.3);
+
+border-radius:25px;
+
+padding:50px;
+
+text-align:center;
+
+background:
+rgba(255,255,255,0.05);
+
+transition:0.3s;
+
+cursor:pointer;
+
+}
+
+.upload-box:hover{
+
+background:
+rgba(255,255,255,0.08);
+
+border-color:#38bdf8;
+
+}
+
+.upload-icon{
+
+font-size:60px;
+
+margin-bottom:15px;
+
+}
+
+.form-control{
+
+background:
+rgba(255,255,255,0.08);
+
+color:white;
+
+border:none;
+
+padding:15px;
+
+border-radius:15px;
+
+}
+
+.form-control:focus{
+
+background:
+rgba(255,255,255,0.12);
+
+color:white;
+
+box-shadow:
+0 0 20px rgba(59,130,246,0.3);
+
+}
+
+.analyze-btn{
+
+width:100%;
+
+padding:15px;
+
+border:none;
+
+border-radius:15px;
+
+font-size:18px;
+
+font-weight:600;
+
+background:
+linear-gradient(
+135deg,
+#10b981,
+#06b6d4
+);
+
+color:white;
+
+transition:0.3s;
+
+}
+
+.analyze-btn:hover{
+
+transform:
+translateY(-4px);
+
+}
+
+.tip-card{
+
+background:
+rgba(255,255,255,0.08);
+
+padding:20px;
+
+border-radius:20px;
+
+margin-top:25px;
+
+}
+
+.action-btn{
+
+padding:12px 25px;
+
+border-radius:50px;
+
+font-weight:600;
+
+margin:5px;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="analyzer-card">
+
+<div class="resume-icon">
+
+📄
+
+</div>
+
+<h1 class="title">
+
+AI Resume Analyzer
+
+</h1>
+
+<p class="subtitle">
+
+Upload your resume and get an ATS score, skill detection and AI recommendations
+
+</p>
+
+<form method="POST"
+enctype="multipart/form-data">
+
+<label class="upload-box">
+
+<div class="upload-icon">
+
+📤
+
+</div>
+
+<h4>
+
+Upload Resume PDF
+
+</h4>
+
+<p>
+
+Drag & Drop or Click to Select
+
+</p>
+
+<input
+type="file"
+name="resume"
+accept=".pdf"
+class="form-control mt-3"
+required>
+
+</label>
+
+<br>
+
+<button
+class="analyze-btn">
+
+🚀 Analyze Resume
+
+</button>
+
+</form>
+
+<div class="tip-card">
+
+<h4>
+
+💡 Resume Tips
+
+</h4>
+
+<hr>
+
+<ul>
+
+<li>Keep your resume within one page.</li>
+
+<li>Add projects with measurable results.</li>
+
+<li>Include internships and certifications.</li>
+
+<li>Use ATS-friendly keywords.</li>
+
+<li>Highlight technical and soft skills.</li>
+
+</ul>
+
+</div>
+
+<div class="text-center mt-4">
+
+<a href="javascript:history.back()"
+class="btn btn-secondary action-btn">
+
+⬅ Back
+
+</a>
+
+<a href="/dashboard"
+class="btn btn-success action-btn">
+
+🏠 Dashboard
+
+</a>
+
+</div>
+
+</div>
+
+<script>
+
+if(
+'serviceWorker'
+in navigator
+){
+
+navigator.serviceWorker.register(
+'/static/sw.js'
+);
+
+}
+
+</script>
+
+</body>
+
+</html>

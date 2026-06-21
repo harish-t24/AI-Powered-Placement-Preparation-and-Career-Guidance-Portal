@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>AI Interview Result</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+rel="stylesheet">
+
+<link rel="manifest"
+href="/static/manifest.json">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+
+min-height:100vh;
+
+display:flex;
+
+justify-content:center;
+align-items:center;
+
+background:
+linear-gradient(
+135deg,
+#0f172a,
+#1e293b,
+#2563eb,
+#06b6d4
+);
+
+background-size:400% 400%;
+
+animation:
+gradientBG 10s ease infinite;
+
+color:white;
+
+padding:20px;
+
+}
+
+@keyframes gradientBG{
+
+0%{
+background-position:0% 50%;
+}
+
+50%{
+background-position:100% 50%;
+}
+
+100%{
+background-position:0% 50%;
+}
+
+}
+
+.result-card{
+
+width:100%;
+max-width:950px;
+
+background:
+rgba(255,255,255,0.08);
+
+backdrop-filter:
+blur(20px);
+
+border:
+1px solid rgba(255,255,255,0.1);
+
+border-radius:30px;
+
+padding:40px;
+
+animation:
+fadeUp 1s ease;
+
+box-shadow:
+0 20px 40px rgba(0,0,0,0.3);
+
+}
+
+@keyframes fadeUp{
+
+from{
+opacity:0;
+transform:translateY(40px);
+}
+
+to{
+opacity:1;
+transform:translateY(0);
+}
+
+}
+
+.result-icon{
+
+font-size:90px;
+
+text-align:center;
+
+margin-bottom:20px;
+
+animation:
+floatIcon 3s infinite ease-in-out;
+
+}
+
+@keyframes floatIcon{
+
+0%{
+transform:translateY(0);
+}
+
+50%{
+transform:translateY(-10px);
+}
+
+100%{
+transform:translateY(0);
+}
+
+}
+
+.score-box{
+
+background:
+rgba(255,255,255,0.08);
+
+padding:25px;
+
+border-radius:20px;
+
+text-align:center;
+
+margin:20px 0;
+
+}
+
+.score{
+
+font-size:60px;
+
+font-weight:700;
+
+color:#22c55e;
+
+}
+
+.feedback-box{
+
+background:
+rgba(255,255,255,0.08);
+
+padding:25px;
+
+border-radius:20px;
+
+margin-top:20px;
+
+max-height:350px;
+
+overflow-y:auto;
+
+}
+
+.feedback-box pre{
+
+color:white;
+
+white-space:pre-wrap;
+
+font-size:15px;
+
+}
+
+.btn-dashboard{
+
+padding:14px 35px;
+
+font-size:18px;
+
+font-weight:600;
+
+border-radius:50px;
+
+margin-top:25px;
+
+}
+
+.badge-box{
+
+display:flex;
+
+justify-content:center;
+
+gap:15px;
+
+flex-wrap:wrap;
+
+margin-top:15px;
+
+}
+
+.badge-item{
+
+background:
+rgba(255,255,255,0.1);
+
+padding:10px 18px;
+
+border-radius:20px;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="result-card">
+{% include 'navbar.html' %}
+<div class="result-icon">
+
+🎤
+
+</div>
+
+<h1 class="text-center">
+
+AI Interview Evaluation
+
+</h1>
+
+<p class="text-center text-light">
+
+Your interview performance has been analyzed by AI.
+
+</p>
+
+<div class="score-box">
+
+<h5>
+
+Overall Interview Score
+
+</h5>
+
+<div class="score">
+
+{{ score }}
+
+</div>
+
+</div>
+
+<div class="badge-box">
+
+<div class="badge-item">
+
+🤖 AI Evaluated
+
+</div>
+
+<div class="badge-item">
+
+🎯 Communication Analysis
+
+</div>
+
+<div class="badge-item">
+
+💼 Interview Readiness
+
+</div>
+
+</div>
+
+<div class="feedback-box">
+
+<h4>
+
+📋 Detailed Feedback
+
+</h4>
+
+<hr>
+
+<pre>
+
+{{ feedback }}
+
+</pre>
+
+</div>
+
+<div class="text-center">
+
+<a href="/dashboard"
+class="btn btn-success btn-dashboard">
+
+🏠 Back To Dashboard
+
+</a>
+
+</div>
+
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Admin Dashboard</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+rel="stylesheet">
+
+<link rel="manifest"
+href="/static/manifest.json">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+rel="stylesheet">
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+
+background:
+linear-gradient(
+135deg,
+#0f172a,
+#1e293b,
+#2563eb,
+#06b6d4
+);
+
+background-size:400% 400%;
+
+animation:
+gradientBG 12s ease infinite;
+
+min-height:100vh;
+
+color:white;
+
+}
+
+@keyframes gradientBG{
+
+0%{
+background-position:0% 50%;
+}
+
+50%{
+background-position:100% 50%;
+}
+
+100%{
+background-position:0% 50%;
+}
+
+}
+
+.glass-card{
+
+background:
+rgba(255,255,255,0.08);
+
+backdrop-filter:
+blur(20px);
+
+border:
+1px solid rgba(255,255,255,0.1);
+
+border-radius:25px;
+
+padding:25px;
+
+transition:0.3s;
+
+height:100%;
+
+}
+
+.glass-card:hover{
+
+transform:
+translateY(-6px);
+
+box-shadow:
+0 10px 30px rgba(59,130,246,0.3);
+
+}
+
+.dashboard-header{
+
+text-align:center;
+
+padding:30px;
+
+}
+
+.dashboard-header h1{
+
+font-size:3rem;
+
+font-weight:700;
+
+}
+
+.dashboard-header p{
+
+color:#cbd5e1;
+
+}
+
+.stat-icon{
+
+font-size:45px;
+
+margin-bottom:10px;
+
+}
+
+.stat-value{
+
+font-size:2rem;
+
+font-weight:700;
+
+}
+
+.chart-card{
+
+background:white;
+
+padding:25px;
+
+border-radius:25px;
+
+margin-top:30px;
+
+}
+
+.table-card{
+
+background:
+rgba(255,255,255,0.08);
+
+backdrop-filter:
+blur(20px);
+
+padding:25px;
+
+border-radius:25px;
+
+margin-top:30px;
+
+}
+
+.table{
+
+color:white;
+
+}
+
+.table thead{
+
+background:
+rgba(255,255,255,0.1);
+
+}
+
+.table-hover tbody tr:hover{
+
+background:
+rgba(255,255,255,0.08);
+
+}
+
+.badge-score{
+
+background:
+linear-gradient(
+135deg,
+#06b6d4,
+#3b82f6
+);
+
+padding:8px 12px;
+
+}
+
+.delete-btn{
+
+background:
+linear-gradient(
+135deg,
+#ef4444,
+#dc2626
+);
+
+border:none;
+
+color:white;
+
+padding:8px 12px;
+
+border-radius:10px;
+
+font-weight:600;
+
+}
+
+.delete-btn:hover{
+
+transform:
+translateY(-2px);
+
+}
+
+.search-box{
+
+border-radius:15px;
+
+padding:12px;
+
+}
+
+.install-btn{
+
+position:fixed;
+
+bottom:20px;
+
+right:20px;
+
+display:none;
+
+border:none;
+
+padding:15px 25px;
+
+border-radius:50px;
+
+background:
+linear-gradient(
+135deg,
+#06b6d4,
+#3b82f6
+);
+
+color:white;
+
+font-weight:600;
+
+}
+
+</style>
+
+</head>
+
+<body>
+<nav class="navbar navbar-dark bg-dark shadow">
+
+<div class="container-fluid">
+
+<h4 class="mb-0">
+
+🛠 Admin Panel
+
+</h4>
+
+<div>
+
+<a href="/dashboard"
+class="btn btn-success me-2">
+
+🏠 Dashboard
+
+</a>
+
+<a href="/logout"
+class="btn btn-danger">
+
+Logout
+
+</a>
+
+</div>
+
+</div>
+
+</nav>
+<div class="container py-4">
+
+<div class="dashboard-header">
+
+<h1>
+
+📊 Admin Analytics Dashboard
+
+</h1>
+
+<p>
+
+Monitor student performance and placement readiness
+
+</p>
+
+</div>
+
+<div class="row g-4">
+
+<div class="col-md-3">
+
+<div class="glass-card text-center">
+
+<div class="stat-icon">
+
+👨‍🎓
+
+</div>
+
+<h5>
+
+Students
+
+</h5>
+
+<div class="stat-value">
+
+{{ total_students }}
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="glass-card text-center">
+
+<div class="stat-icon">
+
+🧠
+
+</div>
+
+<h5>
+
+Aptitude
+
+</h5>
+
+<div class="stat-value">
+
+{{ avg_aptitude }}
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="glass-card text-center">
+
+<div class="stat-icon">
+
+💻
+
+</div>
+
+<h5>
+
+Coding
+
+</h5>
+
+<div class="stat-value">
+
+{{ avg_coding }}
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="glass-card text-center">
+
+<div class="stat-icon">
+
+🎤
+
+</div>
+
+<h5>
+
+Interview
+
+</h5>
+
+<div class="stat-value">
+
+{{ avg_interview }}
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<br>
+
+<div class="row g-4">
+
+<div class="col-md-6">
+
+<div class="glass-card text-center">
+
+<div class="stat-icon">
+
+🏆
+
+</div>
+
+<h4>
+
+Top Performer
+
+</h4>
+
+<h3>
+
+{{ students[0].name if students else "No Data" }}
+
+</h3>
+
+</div>
+
+</div>
+
+<div class="col-md-6">
+
+<div class="glass-card text-center">
+
+<div class="stat-icon">
+
+📥
+
+</div>
+
+<h4>
+
+Export Student Data
+
+</h4>
+
+<br>
+
+<a href="/export-students"
+class="btn btn-success">
+
+Download CSV
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+<br>
+
+<div class="table-card">
+
+<div class="row mb-4">
+
+<div class="col-md-8">
+
+<h3>
+
+🏆 Student Performance
+
+</h3>
+
+</div>
+
+<div class="col-md-4">
+
+<input
+type="text"
+id="searchInput"
+class="form-control search-box"
+placeholder="🔍 Search Student">
+
+</div>
+
+</div>
+<div class="chart-card">
+
+<h4 class="mb-4">
+
+📈 Performance Analytics
+
+</h4>
+
+<canvas id="analyticsChart"></canvas>
+
+</div>
+
+<br>
+<div class="table-responsive">
+
+<table
+class="table table-hover align-middle"
+id="studentTable">
+
+<thead>
+
+<tr>
+
+<th>ID</th>
+<th>Name</th>
+<th>Email</th>
+<th>Aptitude</th>
+<th>Coding</th>
+<th>Interview</th>
+<th>Resume</th>
+<th>Actions</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+{% for student in students %}
+
+<tr>
+
+<td>
+
+{{ student.id }}
+
+</td>
+
+<td>
+
+{{ student.name }}
+
+</td>
+
+<td>
+
+{{ student.email }}
+
+</td>
+
+<td>
+
+<span class="badge badge-score">
+
+{{ student.aptitude_score }}
+
+</span>
+
+</td>
+
+<td>
+
+<span class="badge badge-score">
+
+{{ student.coding_score }}
+
+</span>
+
+</td>
+
+<td>
+
+<span class="badge badge-score">
+
+{{ student.interview_score }}
+
+</span>
+
+</td>
+
+<td>
+
+<span class="badge badge-score">
+
+{{ student.resume_score }}
+
+</span>
+
+</td>
+
+<td>
+
+<div class="d-flex gap-2">
+
+<a href="/view-student/{{ student.id }}"
+class="btn btn-info btn-sm">
+
+👁 View
+
+</a>
+
+<a href="/delete-user/{{ student.id }}"
+class="btn btn-danger btn-sm"
+onclick="return confirm('Delete {{ student.name }} ?')">
+
+🗑 Delete
+
+</a>
+
+</div>
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+<button
+id="installBtn"
+class="install-btn"
+onclick="installApp()">
+
+📱 Install App
+
+</button>
+<script>
+
+new Chart(
+
+document.getElementById(
+"analyticsChart"
+),
+
+{
+
+type:"radar",
+
+data:{
+
+labels:[
+
+"Aptitude",
+"Coding",
+"Interview",
+"Resume"
+
+],
+
+datasets:[{
+
+label:"Average Scores",
+
+data:[
+
+{{ avg_aptitude }},
+{{ avg_coding }},
+{{ avg_interview }},
+{{ avg_resume }}
+
+],
+
+fill:true,
+
+backgroundColor:
+"rgba(59,130,246,0.3)",
+
+borderColor:
+"#3b82f6",
+
+borderWidth:2
+
+}]
+
+},
+
+options:{
+
+responsive:true,
+
+plugins:{
+
+legend:{
+
+labels:{
+color:"black"
+}
+
+}
+
+}
+
+}
+
+}
+
+);
+
+</script>
+<script>
+
+document
+.getElementById(
+"searchInput"
+)
+.addEventListener(
+"keyup",
+
+function(){
+
+let value =
+this.value
+.toLowerCase();
+
+let rows =
+document.querySelectorAll(
+"#studentTable tbody tr"
+);
+
+rows.forEach(row=>{
+
+row.style.display =
+
+row.innerText
+.toLowerCase()
+.includes(value)
+
+? ""
+
+: "none";
+
+});
+
+}
+
+);
+
+</script>
+<script>
+
+if(
+'serviceWorker'
+in navigator
+){
+
+navigator.serviceWorker
+.register(
+'/static/sw.js'
+);
+
+}
+
+</script>
+
+<script>
+
+let deferredPrompt;
+
+window.addEventListener(
+
+'beforeinstallprompt',
+
+(e)=>{
+
+e.preventDefault();
+
+deferredPrompt=e;
+
+document.getElementById(
+'installBtn'
+).style.display='block';
+
+}
+
+);
+
+function installApp(){
+
+if(
+deferredPrompt
+){
+
+deferredPrompt.prompt();
+
+}
+
+}
+
+</script>
+
+</body>
+
+</html>

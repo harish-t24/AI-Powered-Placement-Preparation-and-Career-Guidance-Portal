@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Performance Analytics</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+rel="stylesheet">
+
+<link rel="manifest"
+href="/static/manifest.json">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+rel="stylesheet">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+
+min-height:100vh;
+
+background:
+linear-gradient(
+135deg,
+#0f172a,
+#1e293b,
+#2563eb,
+#06b6d4
+);
+
+background-size:400% 400%;
+
+animation:
+gradientBG 12s ease infinite;
+
+color:white;
+
+padding:30px;
+
+}
+
+@keyframes gradientBG{
+
+0%{
+background-position:0% 50%;
+}
+
+50%{
+background-position:100% 50%;
+}
+
+100%{
+background-position:0% 50%;
+}
+
+}
+
+.glass-card{
+
+background:
+rgba(255,255,255,0.08);
+
+backdrop-filter:
+blur(20px);
+
+border:
+1px solid rgba(255,255,255,0.1);
+
+border-radius:30px;
+
+padding:30px;
+
+box-shadow:
+0 20px 40px rgba(0,0,0,0.25);
+
+animation:
+fadeUp 1s ease;
+
+}
+
+@keyframes fadeUp{
+
+from{
+opacity:0;
+transform:translateY(40px);
+}
+
+to{
+opacity:1;
+transform:translateY(0);
+}
+
+}
+
+.page-title{
+
+font-size:3rem;
+
+font-weight:700;
+
+text-align:center;
+
+margin-bottom:10px;
+
+}
+
+.page-subtitle{
+
+text-align:center;
+
+color:#cbd5e1;
+
+margin-bottom:30px;
+
+}
+
+.stat-card{
+
+background:
+rgba(255,255,255,0.08);
+
+border-radius:20px;
+
+padding:20px;
+
+text-align:center;
+
+height:100%;
+
+transition:0.3s;
+
+}
+
+.stat-card:hover{
+
+transform:
+translateY(-5px);
+
+}
+
+.stat-value{
+
+font-size:32px;
+
+font-weight:700;
+
+margin-top:10px;
+
+}
+
+.chart-card{
+
+background:
+rgba(255,255,255,0.08);
+
+border-radius:25px;
+
+padding:25px;
+
+margin-top:25px;
+
+}
+
+.insight-card{
+
+background:
+rgba(255,255,255,0.08);
+
+border-radius:20px;
+
+padding:20px;
+
+margin-top:20px;
+
+}
+
+.dashboard-btn{
+
+padding:14px 35px;
+
+border-radius:50px;
+
+font-size:18px;
+
+font-weight:600;
+
+margin-top:25px;
+
+}
+
+canvas{
+
+background:
+rgba(255,255,255,0.05);
+
+border-radius:20px;
+
+padding:15px;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+{% include 'navbar.html' %}
+<div class="glass-card">
+
+<h1 class="page-title">
+
+📈 Performance Analytics
+
+</h1>
+
+<p class="page-subtitle">
+
+Track your placement preparation growth over time
+
+</p>
+
+<div class="row g-4">
+
+<div class="col-md-4">
+
+<div class="stat-card">
+
+<h4>
+
+🎯 Current Readiness
+
+</h4>
+
+<div class="stat-value text-success">
+
+{{ readiness_scores[-1] if readiness_scores else 0 }}%
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-4">
+
+<div class="stat-card">
+
+<h4>
+
+📊 Total Records
+
+</h4>
+
+<div class="stat-value text-info">
+
+{{ labels|length }}
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-4">
+
+<div class="stat-card">
+
+<h4>
+
+🚀 Growth Status
+
+</h4>
+
+<div class="stat-value text-warning">
+
+Improving
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="chart-card">
+
+<h3 class="mb-4">
+
+📈 Readiness Growth Chart
+
+</h3>
+
+<canvas id="growthChart"></canvas>
+
+</div>
+
+<div class="insight-card">
+
+<h4>
+
+🤖 AI Insights
+
+</h4>
+
+<hr>
+
+<p>
+
+• Consistent practice improves placement readiness significantly.<br>
+
+• Focus on coding and interview preparation for faster growth.<br>
+
+• Maintain your activity streak to boost overall performance.<br>
+
+• Continue solving aptitude and technical questions daily.
+
+</p>
+
+</div>
+
+<div class="text-center">
+
+<a href="/dashboard"
+class="btn btn-success dashboard-btn">
+
+🏠 Back To Dashboard
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+const ctx =
+document.getElementById(
+"growthChart"
+);
+
+new Chart(ctx,{
+
+type:"line",
+
+data:{
+
+labels:{{ labels|tojson }},
+
+datasets:[{
+
+label:"Readiness Score",
+
+data:{{ readiness_scores|tojson }},
+
+borderColor:"#38bdf8",
+
+backgroundColor:"rgba(56,189,248,0.2)",
+
+fill:true,
+
+tension:0.4,
+
+pointRadius:6,
+
+pointBackgroundColor:"#38bdf8"
+
+}]
+
+},
+
+options:{
+
+responsive:true,
+
+plugins:{
+
+legend:{
+
+labels:{
+color:"white"
+}
+
+}
+
+},
+
+scales:{
+
+x:{
+
+ticks:{
+color:"white"
+},
+
+grid:{
+color:"rgba(255,255,255,0.1)"
+}
+
+},
+
+y:{
+
+ticks:{
+color:"white"
+},
+
+grid:{
+color:"rgba(255,255,255,0.1)"
+}
+
+}
+
+}
+
+}
+
+});
+
+</script>
+
+<script>
+
+if(
+'serviceWorker'
+in navigator
+){
+
+navigator.serviceWorker.register(
+'/static/sw.js'
+);
+
+}
+
+</script>
+
+</body>
+
+</html>
+
