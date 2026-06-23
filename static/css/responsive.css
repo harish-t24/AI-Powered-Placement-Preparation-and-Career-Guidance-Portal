@@ -1,0 +1,278 @@
+/* =========================
+   GLOBAL RESPONSIVE DESIGN
+========================= */
+
+html,
+body{
+    overflow-x:hidden;
+}
+
+/* Images */
+
+img{
+    max-width:100%;
+    height:auto;
+}
+
+/* Tables */
+
+.table-responsive{
+    overflow-x:auto;
+}
+
+/* Buttons */
+
+.btn{
+    border-radius:12px;
+}
+
+/* Textareas */
+
+textarea{
+    width:100%;
+}
+
+/* Charts */
+
+canvas{
+    max-width:100% !important;
+}
+
+/* Cards */
+
+.glass-card,
+.card{
+    overflow:hidden;
+}
+
+/* =========================
+   TABLET DEVICES
+========================= */
+
+@media (max-width:992px){
+
+.dashboard-title,
+.hero-title{
+    font-size:2.5rem !important;
+}
+
+.score{
+    font-size:2rem !important;
+}
+
+.left-panel,
+.right-panel{
+    padding:30px !important;
+}
+
+}
+
+/* =========================
+   MOBILE DEVICES
+========================= */
+
+@media (max-width:768px){
+
+.container{
+    padding-left:15px;
+    padding-right:15px;
+}
+
+/* Headings */
+
+h1{
+    font-size:1.8rem !important;
+}
+
+h2{
+    font-size:1.5rem !important;
+}
+
+h3{
+    font-size:1.3rem !important;
+}
+
+h4{
+    font-size:1.1rem !important;
+}
+
+/* Dashboard */
+
+.dashboard-title{
+    font-size:2rem !important;
+    text-align:center;
+}
+
+.score{
+    font-size:1.8rem !important;
+}
+
+/* Hero */
+
+.hero{
+    height:auto !important;
+    padding:40px 15px !important;
+}
+
+.hero-title{
+    font-size:2rem !important;
+}
+
+.hero-subtitle{
+    font-size:1rem !important;
+}
+
+/* Login/Register */
+
+.login-card{
+    margin:10px;
+}
+
+.left-panel{
+    padding:25px !important;
+    text-align:center;
+}
+
+.right-panel{
+    padding:25px !important;
+}
+
+.robot{
+    font-size:80px !important;
+}
+
+.left-panel h1{
+    font-size:2rem !important;
+}
+
+/* Buttons */
+
+.btn,
+.action-btn,
+.btn-custom{
+
+    width:100%;
+    margin-bottom:10px;
+}
+
+/* Feature boxes */
+
+.feature-row{
+    flex-direction:column;
+}
+
+.feature{
+    width:100%;
+}
+
+/* Stats */
+
+.stats{
+    flex-direction:column;
+    align-items:center;
+}
+
+.stat-card{
+    width:100%;
+}
+
+/* Navbar */
+
+.navbar-brand{
+    font-size:1rem;
+}
+
+/* Forms */
+
+.form-control,
+.form-select{
+    font-size:14px;
+}
+
+/* Charts */
+
+.chart-container,
+.chart-card{
+    padding:10px !important;
+}
+
+/* Cards */
+
+.glass-card{
+    padding:15px !important;
+}
+
+}
+
+/* =========================
+   SMALL MOBILE DEVICES
+========================= */
+
+@media (max-width:480px){
+
+.hero-title{
+    font-size:1.7rem !important;
+}
+
+.dashboard-title{
+    font-size:1.6rem !important;
+}
+
+.robot{
+    font-size:65px !important;
+}
+
+.score{
+    font-size:1.5rem !important;
+}
+
+.stat-value{
+    font-size:1.5rem !important;
+}
+
+}
+
+/* =========================
+   RESPONSIVE GRID HELPERS
+========================= */
+
+.responsive-card{
+
+display:flex;
+flex-wrap:wrap;
+gap:15px;
+
+}
+
+.responsive-card > *{
+
+flex:1 1 250px;
+
+}
+
+.navbar{
+
+background:
+rgba(2,6,23,0.85);
+
+backdrop-filter:
+blur(15px);
+
+border-bottom:
+1px solid rgba(255,255,255,0.1);
+
+}
+
+.nav-link{
+
+color:white !important;
+
+font-weight:500;
+
+}
+
+.nav-link:hover{
+
+color:#38bdf8 !important;
+
+}

@@ -34,6 +34,10 @@ src="https://cdn.jsdelivr.net/npm/chart.js">
 href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
 rel="stylesheet">
 
+<link
+rel="stylesheet"
+href="{{ url_for('static', filename='css/responsive.css') }}">
+
 <style>
 
 *{
@@ -548,16 +552,77 @@ z-index:10000;
 
 <div class="container">
 
-<a class="navbar-brand fw-bold"
-href="#">
+<a
+class="navbar-brand fw-bold"
+href="/dashboard">
 
-<i class="fa-solid fa-graduation-cap"></i>
-
-AI Placement Portal
+🤖 AI Placement Portal
 
 </a>
 
-<div>
+<button
+class="navbar-toggler"
+type="button"
+data-bs-toggle="collapse"
+data-bs-target="#navbarNav">
+
+<span class="navbar-toggler-icon"></span>
+
+</button>
+
+<div
+class="collapse navbar-collapse"
+id="navbarNav">
+
+<ul class="navbar-nav ms-auto">
+
+<li class="nav-item">
+
+<a
+class="nav-link"
+href="/dashboard">
+
+Dashboard
+
+</a>
+
+</li>
+
+<li class="nav-item">
+
+<a
+class="nav-link"
+href="/profile">
+
+Profile
+
+</a>
+
+</li>
+
+<li class="nav-item">
+
+<a
+class="nav-link"
+href="/leaderboard">
+
+Leaderboard
+
+</a>
+
+</li>
+
+<li class="nav-item">
+
+<a
+class="nav-link"
+href="/notifications">
+
+Notifications
+
+</a>
+
+</li>
 
 <button
 id="installBtn"
@@ -567,14 +632,19 @@ style="display:none">
 
 </button>
 
-<a href="/logout"
-class="btn btn-danger ms-2">
+<li class="nav-item">
 
-<i class="fa-solid fa-right-from-bracket"></i>
+<a
+class="btn btn-danger ms-lg-3 mt-2 mt-lg-0"
+href="/logout">
 
 Logout
 
 </a>
+
+</li>
+
+</ul>
 
 </div>
 
@@ -621,7 +691,7 @@ Keep learning consistently to increase your placement readiness score.
 
 <div class="row mt-4">
 
-<div class="col-md-4">
+<div class="col-12 col-md-6 col-lg-4">
 
 <div class="glass-card p-3 text-center">
 
@@ -641,7 +711,7 @@ Keep learning consistently to increase your placement readiness score.
 
 </div>
 
-<div class="col-md-4">
+<div class="col-12 col-md-6 col-lg-4">
 
 <div class="glass-card p-3 text-center">
 
@@ -661,7 +731,7 @@ Keep learning consistently to increase your placement readiness score.
 
 </div>
 
-<div class="col-md-4">
+<div class="col-12 col-md-6 col-lg-4">
 
 <div class="glass-card p-3 text-center">
 
@@ -697,7 +767,7 @@ Activities Completed
 
 <div class="row g-4 mt-2 fade-up">
 
-<div class="col-md-3">
+<div class="col-12 col-sm-6 col-lg-3">
 
 <div class="glass-card text-center p-4">
 
@@ -733,7 +803,7 @@ style="width: {{ student.aptitude_score }}%;">
 
 </div>
 
-<div class="col-md-3">
+<div class="col-12 col-sm-6 col-lg-3">
 
 <div class="glass-card text-center p-4">
 
@@ -769,7 +839,7 @@ style="width: {{ student.coding_score }}%;">
 
 </div>
 
-<div class="col-md-3">
+<div class="col-12 col-sm-6 col-lg-3">
 
 <div class="glass-card text-center p-4">
 
@@ -805,7 +875,7 @@ style="width: {{ student.interview_score }}%;">
 
 </div>
 
-<div class="col-md-3">
+<div class="col-12 col-sm-6 col-lg-3">
 
 <div class="glass-card text-center p-4">
 
@@ -908,7 +978,7 @@ interview and resume scores.
 
 <div class="row g-4 mt-3">
 
-<div class="col-md-4">
+<div class="col-12 col-md-6 col-lg-4">
 
 <div class="glass-card p-4 text-center">
 
@@ -928,7 +998,7 @@ interview and resume scores.
 
 </div>
 
-<div class="col-md-4">
+<div class="col-12 col-md-6 col-lg-4">
 
 <div class="glass-card p-4 text-center">
 
@@ -948,7 +1018,7 @@ interview and resume scores.
 
 </div>
 
-<div class="col-md-4">
+<div class="col-12 col-md-6 col-lg-4">
 
 <div class="glass-card p-4 text-center">
 
@@ -1079,7 +1149,7 @@ Complete more activities to unlock achievements.
 
 <div class="row">
 
-<div class="col-md-4">
+<div class="col-12 col-md-6 col-lg-4">
 
 <div class="glass-card p-3 text-center">
 
@@ -1111,7 +1181,7 @@ Excellent performance. Maintain consistency.
 
 </div>
 
-<div class="col-md-4">
+<div class="col-12 col-md-6 col-lg-4">
 
 <div class="glass-card p-3 text-center">
 
@@ -1143,7 +1213,7 @@ Ready for advanced interview coding rounds.
 
 </div>
 
-<div class="col-md-4">
+<div class="col-12 col-md-6 col-lg-4">
 
 <div class="glass-card p-3 text-center">
 
@@ -1349,18 +1419,11 @@ class="btn btn-secondary action-btn">
 
 <h4 class="text-success">
 
-📄 Resume & Profile
+📄 Resume 
 
 </h4>
 
 <hr>
-
-<a href="/profile"
-class="btn btn-info action-btn">
-
-👤 Profile
-
-</a>
 
 <a href="/resume"
 class="btn btn-dark action-btn">
@@ -1418,13 +1481,6 @@ class="btn btn-secondary action-btn">
 
 </a>
 
-<a href="/leaderboard_page"
-class="btn btn-success action-btn">
-
-🏆 Leaderboard
-
-</a>
-
 </div>
 
 <!-- UTILITIES -->
@@ -1438,13 +1494,6 @@ class="btn btn-success action-btn">
 </h4>
 
 <hr>
-
-<a href="/notifications"
-class="btn btn-warning action-btn">
-
-🔔 Notifications
-
-</a>
 
 <a href="/download-report"
 class="btn btn-danger action-btn">
@@ -1675,5 +1724,8 @@ document.getElementById(
 }
 
 </script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>
