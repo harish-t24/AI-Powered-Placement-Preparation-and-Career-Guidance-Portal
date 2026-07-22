@@ -1,6 +1,6 @@
 # 🤖 AI-Powered Placement Preparation and Career Guidance Portal
 
-An intelligent, AI-powered web application designed to help students prepare for campus placements through aptitude practice, coding challenges, mock interviews, resume analysis, career guidance, and personalized learning. The platform leverages **Google Gemini AI** to provide an interactive and personalized placement preparation experience.
+An AI-powered web application that helps students prepare for campus placements through aptitude practice, coding challenges, mock interviews, resume analysis, career guidance, and personalized learning. Powered by **Google Gemini AI**, the platform delivers an interactive and intelligent placement preparation experience.
 
 ![Project Preview](https://github.com/user-attachments/assets/preview.png)
 
@@ -8,21 +8,22 @@ An intelligent, AI-powered web application designed to help students prepare for
 
 ## 🚀 Live Demo
 
-[🌍 **Project Demo**](https://ai-powered-placement-preparation-and.onrender.com/)
+🌍 **Live Website**
 
+👉 https://ai-powered-placement-preparation-and.onrender.com/
 
 ---
 
 ## 📖 About
 
-The **AI-Powered Placement Preparation and Career Guidance Portal** is a comprehensive platform that enables students to enhance their placement readiness through AI-driven assessments, coding practice, technical interviews, resume optimization, and career guidance. The platform also provides performance analytics, progress tracking, and personalized recommendations to help students achieve their career goals.
+The **AI-Powered Placement Preparation and Career Guidance Portal** is a comprehensive platform designed to improve students' placement readiness using Artificial Intelligence. It offers AI-generated assessments, coding practice, technical interviews, resume analysis, career guidance, study planning, and performance tracking to provide a personalized learning experience.
 
 ---
 
 ## ✨ Features
 
 - 🤖 AI Career Coach
-- 🧠 AI Aptitude Test Generator
+- 🧠 AI Aptitude Question Generator
 - 💻 AI Coding Question Generator
 - 🎤 AI Mock Interview
 - 🎙️ AI Voice Interview
@@ -32,17 +33,17 @@ The **AI-Powered Placement Preparation and Career Guidance Portal** is a compreh
 - 📚 AI Study Planner
 - 📈 Placement Readiness Prediction
 - 📊 Performance Analytics Dashboard
-- 📉 Weakness Analysis & Improvement Suggestions
+- 📉 Weakness Analysis & Personalized Suggestions
 - 🏆 Student Leaderboard
-- 🎖️ Achievement & Certificate Generation
+- 🎖️ Certificate Generation
 - 🔔 Notifications & Activity History
 - 📱 Progressive Web App (PWA) Support
-- 🔐 Secure Student Authentication
-- 👨‍💻 Admin Dashboard with Student Analytics
+- 🔐 Secure Authentication System
+- 👨‍💻 Admin Dashboard for Student Management
 
 ---
 
-## 🛠️ Tech Stack
+# 🛠️ Tech Stack
 
 ### Frontend
 
@@ -59,18 +60,18 @@ The **AI-Powered Placement Preparation and Career Guidance Portal** is a compreh
 
 ### Database
 
-- SQLite (Development)
-- PostgreSQL (Recommended for Deployment)
+- SQLite
+- PostgreSQL (Recommended for Production)
 
 ### Artificial Intelligence
 
 - Google Gemini AI
 
-### Libraries & Tools
+### Libraries
 
-- Chart.js
 - Flask-Login
 - Flask-Bcrypt
+- Chart.js
 - ReportLab
 - PyPDF2
 - Email Validator
@@ -83,7 +84,7 @@ The **AI-Powered Placement Preparation and Career Guidance Portal** is a compreh
 
 ---
 
-## 📂 Project Structure
+# 📂 Project Structure
 
 ```text
 AI-Powered-Placement-Preparation-and-Career-Guidance-Portal/
@@ -95,57 +96,57 @@ AI-Powered-Placement-Preparation-and-Career-Guidance-Portal/
 ├── database.db
 ├── README.md
 │
-├── templates/
-│   ├── index.html
-│   ├── login.html
-│   ├── register.html
-│   ├── dashboard.html
-│   ├── admin.html
-│   ├── profile.html
-│   ├── ai_aptitude.html
-│   ├── aptitude_test.html
-│   ├── ai_coding.html
-│   ├── coding_practice.html
-│   ├── career_chat.html
-│   ├── resume.html
-│   ├── resume_builder.html
-│   ├── interview.html
-│   ├── technical_interview.html
-│   ├── leaderboard.html
-│   └── ...
-│
 ├── static/
 │   ├── css/
 │   ├── js/
 │   ├── images/
 │   └── sw.js
 │
+├── templates/
+│   ├── index.html
+│   ├── login.html
+│   ├── register.html
+│   ├── dashboard.html
+│   ├── profile.html
+│   ├── admin.html
+│   ├── ai_aptitude.html
+│   ├── aptitude_test.html
+│   ├── ai_coding.html
+│   ├── coding_practice.html
+│   ├── career_chat.html
+│   ├── resume_builder.html
+│   ├── resume_analyzer.html
+│   ├── interview.html
+│   ├── technical_interview.html
+│   ├── leaderboard.html
+│   └── ...
+│
 ├── uploads/
 │
 └── utils/
     ├── ai_generator.py
-    ├── code_reviewer.py
     ├── resume_analyzer.py
     ├── interview.py
+    ├── code_reviewer.py
     └── ...
 ```
 
 ---
 
-## 📁 Modules
+# 📁 Modules
 
-### 👨‍🎓 Student Module
+## 👨‍🎓 Student Module
 
 - Student Registration & Login
 - Profile Management
-- Dashboard
+- Personalized Dashboard
 - Progress Tracking
 - Notifications
 - Activity History
 
 ---
 
-### 🧠 AI Learning Module
+## 🧠 AI Learning Module
 
 - AI Aptitude Generator
 - AI Coding Generator
@@ -155,17 +156,17 @@ AI-Powered-Placement-Preparation-and-Career-Guidance-Portal/
 
 ---
 
-### 🎤 Interview Module
+## 🎤 Interview Module
 
-- AI Mock Interview
-- AI Voice Interview
-- AI Technical Interview
-- Interview Evaluation
-- Feedback Generation
+- Mock Interview
+- Voice Interview
+- Technical Interview
+- AI-Based Evaluation
+- Personalized Feedback
 
 ---
 
-### 📄 Resume Module
+## 📄 Resume Module
 
 - Resume Builder
 - Resume Analyzer
@@ -175,65 +176,55 @@ AI-Powered-Placement-Preparation-and-Career-Guidance-Portal/
 
 ---
 
-### 📊 Analytics Module
+## 📊 Analytics Module
 
 - Performance Dashboard
-- Placement Readiness
+- Placement Readiness Prediction
 - Score Analytics
 - Progress Reports
 - Leaderboard
 
 ---
 
-### 👨‍💼 Admin Module
+## 👨‍💻 Admin Module
 
-- Admin Dashboard
 - Student Management
-- Question Management
-- Analytics Dashboard
+- Dashboard Analytics
 - Performance Monitoring
+- Question Management
+- User Statistics
 
 ---
 
-## 🌟 Key Features
+# 🌟 Key Highlights
 
 ### 🤖 AI Career Coach
 
-Provides personalized career guidance, interview tips, resume suggestions, and placement advice using Google Gemini AI.
-
----
+Provides personalized career guidance, interview preparation tips, resume suggestions, and placement advice using Google Gemini AI.
 
 ### 🧠 AI Aptitude Test
 
-Generates company-specific aptitude questions based on selected difficulty levels.
-
----
+Generates company-specific aptitude questions based on selected topics and difficulty levels.
 
 ### 💻 AI Coding Practice
 
-Generates coding interview questions with varying difficulty levels and programming languages.
+Generates coding interview questions with varying difficulty levels across multiple programming languages.
 
----
+### 🎤 AI Interview Evaluation
 
-### 🎤 AI Interview System
-
-Evaluates student answers and provides AI-generated interview feedback and improvement suggestions.
-
----
+Evaluates interview responses and provides intelligent feedback with improvement suggestions.
 
 ### 📄 Resume Analyzer
 
-Analyzes uploaded resumes and calculates ATS compatibility scores with detected skills.
+Analyzes uploaded resumes, detects technical skills, and calculates ATS compatibility scores.
+
+### 📊 Performance Analytics
+
+Visualizes placement readiness, progress, strengths, and improvement areas using interactive charts.
 
 ---
 
-### 📈 Performance Analytics
-
-Tracks overall placement readiness using interactive charts and personalized analytics.
-
----
-
-## 📱 Responsive Design
+# 📱 Responsive Design
 
 Optimized for:
 
@@ -244,74 +235,74 @@ Optimized for:
 
 ---
 
-## ⚡ Performance
+# ⚡ Performance
 
-- Fast Loading
-- Fully Responsive
-- AI-Powered Features
-- Interactive Dashboard
-- Optimized User Experience
-- Clean & Modular Code
-- Progressive Web App Support
+- ⚡ Fast Loading
+- 📱 Fully Responsive
+- 🤖 AI-Powered Features
+- 📊 Interactive Dashboard
+- 🎨 Modern User Interface
+- 🧩 Clean & Modular Code
+- 📦 Progressive Web App (PWA)
 
 ---
 
-## ⚙️ Getting Started
+# ⚙️ Getting Started
 
-### Clone the Repository
+## Clone the Repository
 
 ```bash
 git clone https://github.com/harish-t24/AI-Powered-Placement-Preparation-and-Career-Guidance-Portal.git
 ```
 
-### Navigate to the Project
+## Navigate to the Project
 
 ```bash
 cd AI-Powered-Placement-Preparation-and-Career-Guidance-Portal
 ```
 
-### Create Virtual Environment
+## Create a Virtual Environment
 
 ```bash
 python -m venv venv
 ```
 
-### Activate Virtual Environment
+## Activate the Virtual Environment
 
-#### Windows
+### Windows
 
 ```bash
 venv\Scripts\activate
 ```
 
-#### Linux / macOS
+### Linux / macOS
 
 ```bash
 source venv/bin/activate
 ```
 
-### Install Dependencies
+## Install Dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### Configure Environment Variables
+## Configure Environment Variables
 
-Create a `.env` file:
+Create a `.env` file inside the project root.
 
 ```env
 SECRET_KEY=your_secret_key
 GOOGLE_API_KEY=your_gemini_api_key
 ```
 
-### Run the Application
+## Run the Application
 
 ```bash
 python app.py
 ```
 
-Open:
+Visit:
 
 ```text
 http://127.0.0.1:5000
@@ -319,22 +310,22 @@ http://127.0.0.1:5000
 
 ---
 
-## 🚀 Future Enhancements
+# 🚀 Future Enhancements
 
 - 🌙 Dark / Light Theme
-- 📱 Mobile Application
-- 🔔 Email Notifications
+- 📱 Native Mobile Application
+- 📧 Email Notifications
 - 🌐 Multi-language Support
 - ☁️ Cloud Database Integration
-- 📹 AI Video Interview Evaluation
-- 🏢 Company-wise Placement Roadmaps
-- 🧑‍🤝‍🧑 Student Discussion Forum
-- 📊 Advanced Analytics Dashboard
-- 🤝 Job Portal Integration
+- 🎥 AI Video Interview Evaluation
+- 🏢 Company-Specific Placement Roadmaps
+- 👥 Student Discussion Forum
+- 📈 Advanced Analytics Dashboard
+- 💼 Job Portal Integration
 
 ---
 
-## 📬 Contact
+# 📬 Contact
 
 **Harish T**
 
@@ -350,30 +341,35 @@ http://127.0.0.1:5000
 
 ---
 
-## 🤝 Contributing
+# 🤝 Contributing
 
-Contributions, suggestions, and feature requests are welcome.
+Contributions, feature requests, and suggestions are always welcome.
 
-Feel free to fork this repository, create a feature branch, and submit a pull request.
+If you would like to contribute:
+
+1. Fork the repository.
+2. Create a new branch.
+3. Commit your changes.
+4. Submit a Pull Request.
 
 ---
 
-## ⭐ Support
+# ⭐ Support
 
-If you found this project helpful, please consider giving it a ⭐ **Star** on GitHub.
+If you found this project useful, please consider giving it a ⭐ on GitHub.
 
 ---
 
-## 📄 License
+# 📄 License
 
 This project is licensed under the **MIT License**.
 
 ---
 
-## 👨‍💻 Developed By
+# 👨‍💻 Developed By
 
-# **Harish T**
+## **Harish T**
 
-**Python Developer | Full Stack Developer | AI Enthusiast | Cloud Computing Learner**
+**Python Developer • Full Stack Developer • AI Enthusiast • Cloud Computing Learner**
 
-> *"Empowering students with AI-driven placement preparation for a smarter and more successful career journey."*
+> *"Empowering students with AI-driven placement preparation to build confidence, enhance skills, and achieve career success."*
