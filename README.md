@@ -1,22 +1,22 @@
 # 🤖 AI-Powered Placement Preparation and Career Guidance Portal
 
-An AI-powered web application that helps students prepare for campus placements through aptitude practice, coding challenges, mock interviews, resume analysis, career guidance, and personalized learning. Powered by **Google Gemini AI**, the platform delivers an interactive and intelligent placement preparation experience.
+An AI-powered web application designed to help students prepare for campus placements through aptitude practice, coding challenges, mock interviews, resume analysis, career guidance, and personalized learning. Powered by **Google Gemini AI**, the platform provides an interactive and intelligent placement preparation experience.
 
-![Project Preview](https://github.com/user-attachments/preview.png)
+![Project Preview](preview.png)
 
 ---
 
 ## 🚀 Live Demo
 
-🌍 **Live Website**
+🌐 **Live Website**
 
-👉 https://ai-powered-placement-preparation-and.onrender.com/
+👉 **https://ai-powered-placement-preparation-and.onrender.com/**
 
 ---
 
 ## 📖 About
 
-The **AI-Powered Placement Preparation and Career Guidance Portal** is a comprehensive platform designed to improve students' placement readiness using Artificial Intelligence. It offers AI-generated assessments, coding practice, technical interviews, resume analysis, career guidance, study planning, and performance tracking to provide a personalized learning experience.
+The **AI-Powered Placement Preparation and Career Guidance Portal** is a comprehensive web application that empowers students to prepare effectively for campus placements. It integrates Artificial Intelligence to provide personalized learning, AI-generated assessments, coding practice, interview preparation, resume optimization, study planning, and performance tracking—all in a single platform.
 
 ---
 
@@ -37,9 +37,10 @@ The **AI-Powered Placement Preparation and Career Guidance Portal** is a compreh
 - 🏆 Student Leaderboard
 - 🎖️ Certificate Generation
 - 🔔 Notifications & Activity History
-- 📱 Progressive Web App (PWA) Support
 - 🔐 Secure Authentication System
-- 👨‍💻 Admin Dashboard for Student Management
+- 👨‍💻 Admin Dashboard
+- 📱 Fully Responsive Design
+- ⚡ Progressive Web App (PWA) Support
 
 ---
 
@@ -61,7 +62,7 @@ The **AI-Powered Placement Preparation and Career Guidance Portal** is a compreh
 ### Database
 
 - SQLite
-- PostgreSQL (Recommended for Production)
+- PostgreSQL (Production Ready)
 
 ### Artificial Intelligence
 
@@ -92,10 +93,13 @@ AI-Powered-Placement-Preparation-and-Career-Guidance-Portal/
 │
 ├── app.py
 ├── config.py
+├── extensions.py
 ├── requirements.txt
-├── database.db
+├── runtime.txt
+├── Procfile
 ├── README.md
 │
+├── models/
 ├── static/
 │   ├── css/
 │   ├── js/
@@ -103,32 +107,12 @@ AI-Powered-Placement-Preparation-and-Career-Guidance-Portal/
 │   └── sw.js
 │
 ├── templates/
-│   ├── index.html
-│   ├── login.html
-│   ├── register.html
-│   ├── dashboard.html
-│   ├── profile.html
-│   ├── admin.html
-│   ├── ai_aptitude.html
-│   ├── aptitude_test.html
-│   ├── ai_coding.html
-│   ├── coding_practice.html
-│   ├── career_chat.html
-│   ├── resume_builder.html
-│   ├── resume_analyzer.html
-│   ├── interview.html
-│   ├── technical_interview.html
-│   ├── leaderboard.html
-│   └── ...
+│
+├── utils/
 │
 ├── uploads/
 │
-└── utils/
-    ├── ai_generator.py
-    ├── resume_analyzer.py
-    ├── interview.py
-    ├── code_reviewer.py
-    └── ...
+└── preview.png
 ```
 
 ---
@@ -158,10 +142,10 @@ AI-Powered-Placement-Preparation-and-Career-Guidance-Portal/
 
 ## 🎤 Interview Module
 
-- Mock Interview
-- Voice Interview
-- Technical Interview
-- AI-Based Evaluation
+- AI Mock Interview
+- AI Voice Interview
+- AI Technical Interview
+- AI Interview Evaluation
 - Personalized Feedback
 
 ---
@@ -180,47 +164,57 @@ AI-Powered-Placement-Preparation-and-Career-Guidance-Portal/
 
 - Performance Dashboard
 - Placement Readiness Prediction
-- Score Analytics
 - Progress Reports
-- Leaderboard
+- Score Analytics
+- Student Leaderboard
 
 ---
 
 ## 👨‍💻 Admin Module
 
+- Admin Dashboard
 - Student Management
-- Dashboard Analytics
-- Performance Monitoring
 - Question Management
-- User Statistics
+- Performance Monitoring
+- Analytics Dashboard
 
 ---
 
-# 🌟 Key Highlights
+# 🌟 Key Features
 
 ### 🤖 AI Career Coach
 
-Provides personalized career guidance, interview preparation tips, resume suggestions, and placement advice using Google Gemini AI.
+Provides personalized career guidance, interview tips, resume suggestions, and placement advice using Google Gemini AI.
+
+---
 
 ### 🧠 AI Aptitude Test
 
-Generates company-specific aptitude questions based on selected topics and difficulty levels.
+Generates AI-powered aptitude questions based on selected topics and difficulty levels.
+
+---
 
 ### 💻 AI Coding Practice
 
-Generates coding interview questions with varying difficulty levels across multiple programming languages.
+Creates coding interview questions across multiple programming languages with varying difficulty levels.
+
+---
 
 ### 🎤 AI Interview Evaluation
 
-Evaluates interview responses and provides intelligent feedback with improvement suggestions.
+Evaluates interview responses and provides AI-generated feedback and improvement suggestions.
+
+---
 
 ### 📄 Resume Analyzer
 
 Analyzes uploaded resumes, detects technical skills, and calculates ATS compatibility scores.
 
+---
+
 ### 📊 Performance Analytics
 
-Visualizes placement readiness, progress, strengths, and improvement areas using interactive charts.
+Displays progress, strengths, weaknesses, and placement readiness using interactive charts and analytics.
 
 ---
 
@@ -237,17 +231,17 @@ Optimized for:
 
 # ⚡ Performance
 
-- ⚡ Fast Loading
-- 📱 Fully Responsive
-- 🤖 AI-Powered Features
-- 📊 Interactive Dashboard
-- 🎨 Modern User Interface
-- 🧩 Clean & Modular Code
-- 📦 Progressive Web App (PWA)
+- Fast Loading
+- Fully Responsive
+- AI-Powered Features
+- Interactive Dashboard
+- Modern UI/UX
+- Clean & Modular Code
+- Progressive Web App (PWA)
 
 ---
 
-# ⚙️ Getting Started
+# ⚙️ Installation
 
 ## Clone the Repository
 
@@ -289,7 +283,7 @@ pip install -r requirements.txt
 
 ## Configure Environment Variables
 
-Create a `.env` file inside the project root.
+Create a `.env` file in the project root.
 
 ```env
 SECRET_KEY=your_secret_key
@@ -313,7 +307,7 @@ http://127.0.0.1:5000
 # 🚀 Future Enhancements
 
 - 🌙 Dark / Light Theme
-- 📱 Native Mobile Application
+- 📱 Android & iOS Application
 - 📧 Email Notifications
 - 🌐 Multi-language Support
 - ☁️ Cloud Database Integration
@@ -343,20 +337,21 @@ http://127.0.0.1:5000
 
 # 🤝 Contributing
 
-Contributions, feature requests, and suggestions are always welcome.
+Contributions, suggestions, and feature requests are welcome.
 
 If you would like to contribute:
 
-1. Fork the repository.
-2. Create a new branch.
-3. Commit your changes.
-4. Submit a Pull Request.
+1. Fork the repository
+2. Create a feature branch
+3. Commit your changes
+4. Push to your branch
+5. Open a Pull Request
 
 ---
 
 # ⭐ Support
 
-If you found this project useful, please consider giving it a ⭐ on GitHub.
+If you found this project useful, please consider giving it a ⭐ **Star** on GitHub.
 
 ---
 
