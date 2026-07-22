@@ -2,7 +2,7 @@
 
 An AI-powered web application that helps students prepare for campus placements through aptitude practice, coding challenges, mock interviews, resume analysis, career guidance, and personalized learning. Powered by **Google Gemini AI**, the platform delivers an interactive and intelligent placement preparation experience.
 
-![Project Preview](https://github.com/user-attachments/assets/preview.png)
+![Project Preview](https://github.com/user-attachments/preview.png)
 
 ---
 
